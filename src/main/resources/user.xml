@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user>
+  <!--注释-->
+  <Account type="mobile">
+    <name>移动</name>
+    <code>10086</code>
+    <pass>123456</pass>
+    <money>999999999</money>
+  </Account>
+  <Account type="unicom">
+    <name>联通</name>
+    <code>10010</code>
+    <pass>123456</pass>
+    <money>88888888</money>
+  </Account>
+</user>

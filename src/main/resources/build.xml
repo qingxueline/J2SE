@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="ant" basedir="." default="second">
+	
+	<property name="dist" value="dist"/>
+	<property name="compile" value="compile"/>
+	
+	<target name="init" description="hello world">
+		<mkdir dir="dream"/>
+		<mkdir dir="${dist}"/>
+		<mkdir dir="${compile}"/>
+	</target>
+	
+	<target name="second">
+		<delete dir="dream"/>
+		<delete dir="${dist}"/>
+		<delete dir="${compile}"/>
+	</target>
+	
+	<target name="three" depends="init">
+		<javac srcdir="src" destdir="${compile}">好好学习,天天向上</javac>
+	</target>
+	
+	<target name="four" depends="three">
+		<jar destfile="${dist}/package-${DSTAMP}.jar" basedir="${compile}"></jar>
+	</target>
+	
+</project>
