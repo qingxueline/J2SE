@@ -25,7 +25,10 @@ public class RateLimiterTest {
             tasks.add(new UserRequest(i));
         }
 
-        ExecutorService threadPool = Executors.newCachedThreadPool();
+//        ExecutorService threadPool = Executors.newCachedThreadPool();
+
+//        ExecutorService threadPool = Executors.newFixedThreadPool(1);
+        ExecutorService threadPool = Executors.newSingleThreadExecutor();
         for (Runnable runnable : tasks) {
             System.out.println("等待时间：" + rateLimiter.acquire());
             threadPool.execute(runnable);
