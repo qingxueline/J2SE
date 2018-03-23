@@ -2,6 +2,7 @@ package com.somnus.guava;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -40,7 +41,7 @@ public class JoinerTest {
         System.out.println("result:" + msg);//result:1、None、3
 
         //MapJoiner 是 Joiner 的内部静态类，用于帮助将 Map 对象拼接成字符串。
-        Map<String,String> map = new HashMap<>();
+        Map<String,String> map = Maps.newHashMap();
         map.put("username","killy");
         map.put("password","123456");
 
