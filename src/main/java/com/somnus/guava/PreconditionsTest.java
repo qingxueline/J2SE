@@ -34,5 +34,11 @@ public class PreconditionsTest {
         System.out.println(aNull);
     }
 
- 
+    @Test
+    public void checkArgument3Test() {
+        String entry = null;
+        String aNull = Preconditions.checkNotNull(entry,"参数有误");
+        System.out.println(aNull);
+    }
+
 }
