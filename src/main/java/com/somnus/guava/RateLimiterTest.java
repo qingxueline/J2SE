@@ -9,6 +9,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
+ *
+ * <p>
+ * 并发量：系统同时处理多少个请求。这个是时间没关系，和线程/进程有关系，比如10个线程，并发就是10。另外如果不考虑最终瓶颈，通过增加机器也能提高并发能力。
+ * <p/>
+ *
+ * <p>
+ * QPS:   每秒钟处理的请求数。（Requests per second）
+ * <p/>
+ *
+ * <p>
+ *   吞吐量：服务端处理的线程数*1000/请求处理时间
+ * <p/>
+ *
  * <p>
  *     RateLimiter 是Google开源工具包Guava提供了限流工具类。
  *
