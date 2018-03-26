@@ -83,14 +83,15 @@ public class JedisTest {
         Jedis jedis = JedisUtil.getInstance().getJedis();
         Person p = new Person();
         p.setId(3);
-        p.setName("测试");
+        p.setName("测试数据");
 
         JedisUtil.Strings strings = jedisUtil.new Strings();
-        strings.set("object3", SerializationUtils.serialize(p));
+        strings.set("person", SerializationUtils.serialize(p));
 
-        byte[] personBy = jedis.get(SafeEncoder.encode("object3"));
+        byte[] personBy = jedis.get(SafeEncoder.encode("person"));
         Person p1 = (Person) SerializationUtils.deserialize(personBy);
-        System.out.println(p1.getName());
+        System.out.println("id:" + p1.getId());
+        System.out.println("name:" + p1.getName());
     }
 
 
