@@ -23,6 +23,7 @@ public class PreconditionsTest {
     public void checkArgument1Test() {
         int count = 0;
         Preconditions.checkArgument(count > 0, "count 参数必须大于: %s", count);
+
     }
 
 
