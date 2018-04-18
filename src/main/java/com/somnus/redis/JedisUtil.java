@@ -108,7 +108,8 @@ public class JedisUtil {
      */
     public void returnJedis(Jedis jedis) {
         if (null != jedis && null != jedisPool) {
-            jedisPool.returnResource(jedis);
+//            jedisPool.returnResource(jedis);
+            jedis.close();
         }
     }
 
@@ -119,7 +120,8 @@ public class JedisUtil {
      */
     public static void returnBrokenResource(Jedis jedis) {
         if (null != jedis && null != jedisPool) {
-            jedisPool.returnResource(jedis);
+//            jedisPool.returnResource(jedis);
+            jedis.close();
         }
     }
 

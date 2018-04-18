@@ -33,7 +33,7 @@ public class RateLimiterTest {
     public static void main(String[] args) {
 
         //速率是每秒两个许可
-        RateLimiter rateLimiter = RateLimiter.create(10);
+        RateLimiter rateLimiter = RateLimiter.create(0.1);
         List<Runnable> tasks = new ArrayList<Runnable>();
         long start = System.currentTimeMillis();
         for (int i = 0; i < 1000; i++) {
