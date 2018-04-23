@@ -11,6 +11,9 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  *单向加密算法支持MD5、SHA、MAC，BASE64
@@ -125,6 +128,30 @@ public class Coder {
      */
     public static String encryptBASE64(byte[] key) throws Exception {
         return (new BASE64Encoder()).encodeBuffer(key);
+    }
+
+    /**
+     * 对请求参数按照key=value的格式并接，并且参照ASCII字典排序。如：a="a"&c="c"&f="f"
+     * @param params 请求参数
+     * @return 。
+     */
+    public static String dictionary0rder(Map<String, String> params) {
+        if (params == null) {
+            return null;
+        } else {
+            params.remove("sign");
+            StringBuilder content = new StringBuilder();
+            ArrayList<String> keys = new ArrayList<String>(params.keySet());
+            Collections.sort(keys);
+
+            for (int i = 0; i < keys.size(); ++i) {
+                String key = keys.get(i);
+                String value = params.get(key);
+                content.append(i == 0 ? "" : "&").append(key).append("=").append(value);
+            }
+            System.out.println("content2: " + content.toString());
+            return content.toString();
+        }
     }
 
 }
