@@ -79,7 +79,6 @@ public class RSACoderTes {
         //用于定义签名
         String inputStr = "sign";
         byte[] data = inputStr.getBytes();
-
         byte[] encodedData = RSACoder.encryptByPrivateKey(data, privateKey);
         //Base64加密，方便数据传输
         String encoded = Coder.encryptBASE64(encodedData);
