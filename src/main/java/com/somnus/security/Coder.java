@@ -135,7 +135,7 @@ public class Coder {
      * @param params 请求参数
      * @return 。
      */
-    public static String dictionary0rder(Map<String, String> params) {
+    public static String dictionaryOrder(Map<String, String> params) {
         if (params == null) {
             return null;
         } else {
