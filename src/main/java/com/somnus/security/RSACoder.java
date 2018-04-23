@@ -67,7 +67,7 @@ public abstract class RSACoder extends Coder {
      * 校验数字签名
      *
      * @param data
-     *            加密数据
+     *             待签名字符串
      * @param publicKey
      *            公钥
      * @param sign

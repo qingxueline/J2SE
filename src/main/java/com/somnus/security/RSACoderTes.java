@@ -33,7 +33,7 @@ public class RSACoderTes {
 
     //用于服务使用者向服务提供者发送信息
     @Test
-    public void test() throws Exception {
+    public void test1() throws Exception {
 
         /**
          * 公钥生成签名，私钥解密签名
@@ -72,32 +72,55 @@ public class RSACoderTes {
 
     }
 
-    //用于服务提供者向服务使用者发送回馈信息，签名能够让使用者验证信息的合法性和信息来源。
+    /**
+     * 私钥加密——公钥解密
+     * @throws Exception
+     */
     @Test
-    public void testSign() throws Exception {
+    public void test2() throws Exception {
+
+        //1、--------------------------------------------服务端代码，使用私钥加密
         System.err.println("私钥加密——公钥解密");
         //用于定义签名
         String inputStr = "sign";
         byte[] data = inputStr.getBytes();
-
         byte[] encodedData = RSACoder.encryptByPrivateKey(data, privateKey);
         //Base64加密，方便数据传输
         String encoded = Coder.encryptBASE64(encodedData);
         System.err.println(".............encoded：" + encoded);
 
-        byte[] decodedData = RSACoder.decryptByPublicKey(encodedData, publicKey);
+        //2、--------------------------------------------客户端代码，使用公钥加密
+        byte[] decoded = Coder.decryptBASE64(encoded);
+        byte[] decodedData = RSACoder.decryptByPublicKey(decoded, publicKey);
         String outputStr = new String(decodedData);
         System.err.println("加密前: " + inputStr + "\n\r" + "解密后: " + outputStr);
+    }
 
 
-        System.err.println("私钥签名——公钥验证签名");
+    /**
+     * 服务端私钥生成签名——客户端公钥验证签名
+     * @throws Exception
+     */
+    @Test
+    public void test3() throws Exception {
+
+        String name = "abc";
+        String password = "123456";
+
+
+        //1、--------------------------------------------服务端代码，使用私钥生成签名
+        //按照字典顺序排序，然后使用sha()制作签名
+        String sha1 = "name=" + name + "&password=" + password;
+        sha1 = Coder.sha(sha1);
         // 产生签名
-        String sign = RSACoder.sign(encodedData, privateKey);
-        System.err.println("签名:\r" + sign);
+        String sign = RSACoder.sign(sha1.getBytes(), privateKey);
 
-
+        //2、--------------------------------------------客户端代码，使用公钥验证
         // 验证签名(代码放在服务使用者一方)
-        boolean status = RSACoder.verify(encodedData, publicKey, sign);
+
+        String sha2 = "name=" + name + "&password=" + password;
+        sha2 = Coder.sha(sha2);
+        boolean status = RSACoder.verify(sha2.getBytes(), publicKey, sign);
         System.err.println("状态:\r" + status);
 
 
