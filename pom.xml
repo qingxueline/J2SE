@@ -26,13 +26,6 @@
             <artifactId>zookeeper</artifactId>
             <version>3.4.6</version>
         </dependency>
-		<!-- 加入junit依赖包 -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
         <!-- jdbc driver -->
         <dependency>
             <groupId>${jdbc.driver.groupId}</groupId>
@@ -267,9 +260,17 @@
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
         </dependency>
-
-
-
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <!-- java系统信息 -->
+        <dependency>
+            <groupId>org.fusesource</groupId>
+            <artifactId>sigar</artifactId>
+            <version>1.6.4</version>
+        </dependency>
     </dependencies>
 	<build>
 		<plugins>
