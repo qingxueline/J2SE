@@ -1,4 +1,4 @@
-package com.somnus.thread.delayQueue;
+package com.somnus.queue.delayQueue;
 
 /**
  * Created by lyl on 2017/7/15 0015.

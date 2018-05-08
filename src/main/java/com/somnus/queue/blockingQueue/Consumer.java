@@ -1,6 +1,4 @@
-package com.somnus.thread.blockingQueue;
-
-import java.util.concurrent.BlockingQueue;
+package com.somnus.queue.blockingQueue;
 
 /**
  * 消费者，这里在实际应用在写任务的逻辑

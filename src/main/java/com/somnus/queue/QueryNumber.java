@@ -1,4 +1,4 @@
-package com.somnus;
+package com.somnus.queue;
 
 /**
  * 

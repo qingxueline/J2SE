@@ -1,4 +1,4 @@
-package com.somnus.thread.bankQueue;
+package com.somnus.queue.bankQueue;
 
 import java.util.ArrayList;
 import java.util.List;

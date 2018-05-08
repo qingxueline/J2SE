@@ -1,4 +1,4 @@
-package com.somnus.thread.bankQueue;
+package com.somnus.queue.bankQueue;
 
 public enum CustomerType{
 	COMMON, EXPRESS, VIP;

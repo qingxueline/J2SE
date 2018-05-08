@@ -1,4 +1,4 @@
-package com.somnus.thread.delayQueue;
+package com.somnus.queue.delayQueue;
 
 import org.apache.log4j.Logger;
 

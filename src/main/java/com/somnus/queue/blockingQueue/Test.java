@@ -1,4 +1,4 @@
-package com.somnus.thread.blockingQueue;
+package com.somnus.queue.blockingQueue;
 
 
 /**
