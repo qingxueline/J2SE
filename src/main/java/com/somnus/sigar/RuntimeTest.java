@@ -1,10 +1,10 @@
-package com.somnus.jvm;
+package com.somnus.sigar;
 
 /**
  * @author lyl
  * @version V1.0
  * @project notice-api
- * @package com.gsta.notice.jvm
+ * @package com.gsta.notice.sigar
  * @date 2018/05/04 15:39
  * @description 1.配置
  * <p>
@@ -26,6 +26,9 @@ package com.somnus.jvm;
  * <p>
  * 再再次，将“java读取系统信息\hyperic-sigar-1.6.4\sigar-bin\lib”中，与你即将获取信息的主机所用系统相对应的文件（如ubuntu对应的是libsigar-amd64-linux.so）复制到你在第二步获取到的java.library.path路径中。
  * 最后，好的，结束了。
+ * <p>
+ *  不使用上班的方式加载依赖包的话就需要通过代码加载配置环境变量的方式，这种方式比较灵活，推荐使用。这样就没要在每个系统都放一个依赖文件了
+ *  代码方式如：RuntimeTest2.initSigarLibraryPath();通System.setProperty("java.library.path", "环境变量");
  */
 
 import org.hyperic.sigar.*;
@@ -38,6 +41,7 @@ import java.util.Properties;
 public class RuntimeTest {
     public static void main(String[] args) {
         try {
+            RuntimeTest2.initSigarLibraryPath();
             // System信息，从jvm获取
             property();
             System.out.println("----------------------------------");

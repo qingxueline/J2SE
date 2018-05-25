@@ -1,23 +1,74 @@
-package com.somnus.jvm;
+package com.somnus.sigar;
 
+import com.google.common.io.Resources;
+import lombok.extern.slf4j.Slf4j;
 import org.hyperic.sigar.*;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * @author lyl
  * @version V1.0
  * @project J2SE
- * @package com.somnus.jvm
+ * @package com.somnus.sigar
  * @date 2018/05/21 10:19
  * @description
  */
+@Slf4j
 public class RuntimeTest2 {
+
+    /**
+     * 加载Sigar环境变量
+     **/
+    public static void initSigarLibraryPath() {
+        String sigarLibPath = null;
+        //此处只为得到依赖库文件的目录，可根据实际项目自定义
+        String configPath = Resources.getResource("sigar/.sigar_shellrc").getFile();
+        try {
+            configPath = java.net.URLDecoder.decode(configPath, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            log.error("编码异常", e);
+            return;
+        }
+
+        File classPath = new File(configPath).getParentFile();
+        String path = System.getProperty("java.library.path");
+        try {
+            sigarLibPath = classPath.getCanonicalPath();
+        } catch (Exception e) {
+            log.error("获取Sigar系统监控目录路径异常", e);
+            return;
+        }
+        //为防止java.library.path重复加，此处判断了一下
+        if (!path.contains(sigarLibPath)) {
+            //将Sigar变量并接到环境变量中
+            if (isOSWin()) {
+                path = String.format("%s;%s", path, sigarLibPath);
+            } else {
+                path = String.format("%s:%s", path, sigarLibPath);
+            }
+            log.info("java.library.path：" + path);
+            System.setProperty("java.library.path", path);
+        }
+
+    }
+
+    /**
+     * 操作系统判断
+     **/
+    private static boolean isOSWin() {//OS 版本判断
+        String os = System.getProperty("os.name").toLowerCase();
+        log.info("operating system：" + os);
+        return os.contains("win");
+    }
+
     public static void main(String[] args) {
         try {
+            initSigarLibraryPath();
             property();
         } catch (Exception e) {
             e.printStackTrace();
