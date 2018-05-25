@@ -1,4 +1,4 @@
-package com.somnus.guava;
+package com.somnus.guava.cache;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -40,11 +40,17 @@ public class CacheTest {
     @Test
     public void LoadingCacheDemoTest() {
         LoadingCache<String, String> cache = CacheBuilder.newBuilder()
-                .maximumSize(100) //最大缓存数目
-                .expireAfterAccess(1, TimeUnit.SECONDS) //缓存1秒后过期
+                //最大缓存数目
+                .maximumSize(100)
+                //设置时间对象没有被读/写访问，则对象1秒后从内存中删除
+                .expireAfterAccess(1, TimeUnit.SECONDS)
+                //设置时间对象没有被写访问则，对象1秒从内存中删除
+                .expireAfterWrite(1, TimeUnit.SECONDS)
+                //CacheLoader类 实现自动加载
                 .build(new CacheLoader<String, String>() {
                     @Override
                     public String load(String key) throws Exception {
+                        //缓存过期从SQL或者NoSql 获取对象。此处我们之间返回Key.
                         return key;
                     }
                 });
@@ -55,13 +61,12 @@ public class CacheTest {
         try {
             System.out.println(cache.get("j"));
             TimeUnit.SECONDS.sleep(2);
-            System.out.println(cache.get("s")); //输出s
+            System.out.println(cache.get("s")); //缓存过期后，返回key。会输出s
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
 
     }
-
 
 
     @Test

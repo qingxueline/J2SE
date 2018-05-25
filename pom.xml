@@ -271,6 +271,14 @@
             <artifactId>sigar</artifactId>
             <version>1.6.4</version>
         </dependency>
+
+		<!-- lombok 简化了pojo的开发，@Data 注解后就不需要写get 和 set方法 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.6</version>
+		</dependency>
+		
     </dependencies>
 	<build>
 		<plugins>

@@ -6,8 +6,26 @@ package com.somnus.jvm;
  * @project notice-api
  * @package com.gsta.notice.jvm
  * @date 2018/05/04 15:39
- * @description
- *
+ * @description 1.配置
+ * <p>
+ * 今天又一次打算用到sigar来获取主机信息，在做完将程序写好，打包成可执行jar包，上传到ubuntu主机上等一些列步骤之后，当我用“java -jar ***.jar”执行该jar程序时，很意外的出现了no libsigar-amd64-linux.so in java.library.path错误。
+ * 其实在第一次接触sigar的时候，也曾遇见过这个问题，当时是到处百度谷歌，最后终于给解决了。可惜的是当时即使在解决完这个棘手的问题后，我竟然没有写个文档来记录下，然后导致这次遇到这个问题时又是搞了一个下午，但现在才得以解决，吸取上次没有写文档的教训，这次写下来，以来留档，二来供后面再次遇到这个问题的同学们当参考。
+ * 首先，需要去下个东西http://pan.baidu.com/s/1pJK6Nur
+ * 其次，我们需要获取到java.library.path这个路径，方法是写个用小的java程序来实现
+ * <p>
+ * System.out.println(System.getProperty("java.library.path"));
+ * <p>
+ * 在main方法中写上这一条指令来打印系统中的java.library.path路径；（如我的ubuntu的路径为：/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib）
+ * 再次，解压上面下载的压缩包，然后仔细阅读解压后生成的文件夹中的"备注.txt"这个文本的前5行，也就是下面列出来的内容
+ * <p>
+ * sigar 测试项目  在window环境下
+ * 只需要一下2个依赖:
+ * sigar.jar
+ * sigar-x86-winnt.dll
+ * 如果环境为linux，则在hyperic-sigar-1.6.4\sigar-bin\lib中寻找替换对应的sigar-x86-winnt.dll 文件(linux下为os文件，window下为dll)
+ * <p>
+ * 再再次，将“java读取系统信息\hyperic-sigar-1.6.4\sigar-bin\lib”中，与你即将获取信息的主机所用系统相对应的文件（如ubuntu对应的是libsigar-amd64-linux.so）复制到你在第二步获取到的java.library.path路径中。
+ * 最后，好的，结束了。
  */
 
 import org.hyperic.sigar.*;
@@ -232,7 +250,7 @@ public class RuntimeTest {
                     System.out.println(fs.getDevName() + "已经使用量:    " + usage.getUsed() + "KB");
                     double usePercent = usage.getUsePercent() * 100D;
                     // 文件系统资源的利用率
-                    System.out.println(fs.getDevName() + "资源的利用率:    " + usePercent + "%");
+                    System.out.println(fs.getDevName() + "资源的使用率:    " + usePercent + "%");
                     break;
                 case 3:// TYPE_NETWORK ：网络
                     break;
