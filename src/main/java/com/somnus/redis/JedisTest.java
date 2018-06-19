@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。
  * Created by lyl on 2018/3/26 0026.
  */
 public class JedisTest {
 
+    //string
     @Test
     public void redisStringTest() {
         //连接本地的 Redis 服务
@@ -25,22 +27,55 @@ public class JedisTest {
         System.out.println("redis 存储的字符串为: " + jedis.get("runoobkey"));
     }
 
+    //list，数据重复
     @Test
     public void redisListTest() {
         //连接本地的 Redis 服务
         Jedis jedis = new Jedis("localhost");
         System.out.println("连接成功");
         //存储数据到列表中
-        jedis.lpush("site-list", "Runoob");
-        jedis.lpush("site-list", "Google");
-        jedis.lpush("site-list", "Taobao");
+        jedis.lpush("site-list", "a", "b", "c", "d", "d");
+
         // 获取存储的数据并输出
-        List<String> list = jedis.lrange("site-list", 0, 2);
+        List<String> list = jedis.lrange("site-list", 0, 10);//获取前10条数据
         for (int i = 0; i < list.size(); i++) {
             System.out.println("列表项为: " + list.get(i));
         }
     }
 
+    //除list等于value的元素，当count>0时，从表头开始查找，移除count个；当count=0时，从表头开始查找，移除所有等于value的；当count<0时，从表尾开始查找，移除|count| 个
+    @Test
+    public void lremTest() {
+        Jedis jedis = new Jedis("localhost");
+        System.out.println("连接成功");
+        System.out.println("结果： " + jedis.lrem("site-list", 0, "d"));
+    }
+
+    //set,数据不重复
+    @Test
+    public void redisSetTest() {
+        //连接本地的 Redis 服务
+        Jedis jedis = new Jedis("localhost");
+        System.out.println("连接成功");
+        jedis.sadd("site-set", "a", "b", "c", "d", "d");
+
+        //获取数据
+        Set<String> smembers = jedis.smembers("site-set");
+        for (String str : smembers) {
+            System.out.println("列表项为: " + str);
+        }
+    }
+
+    //移除集合Set key 中的一个或多个 member 元素，不存在的 member 元素会被忽略。
+    @Test
+    public void sremTest() {
+        Jedis jedis = new Jedis("localhost");
+        System.out.println("连接成功");
+        jedis.srem("site-set","d");
+    }
+
+
+    //获取数据库所有的key
     @Test
     public void redisKeysTest() {
         //连接本地的 Redis 服务
@@ -48,11 +83,21 @@ public class JedisTest {
         System.out.println("连接成功");
         // 获取数据并输出
         Set<String> keys = jedis.keys("*");
+        System.out.println("keys = " + keys.size());
         Iterator<String> it = keys.iterator();
         while (it.hasNext()) {
             String key = it.next();
-            System.out.println(key);
+            System.out.println("key:" + key);
         }
+    }
+
+
+    //删除key
+    @Test
+    public void deleteTest() {
+        Jedis jedis = new Jedis("localhost");
+        System.out.println("连接成功");
+        jedis.del("person");
     }
 
 

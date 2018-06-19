@@ -27,8 +27,8 @@ package com.somnus.sigar;
  * 再再次，将“java读取系统信息\hyperic-sigar-1.6.4\sigar-bin\lib”中，与你即将获取信息的主机所用系统相对应的文件（如ubuntu对应的是libsigar-amd64-linux.so）复制到你在第二步获取到的java.library.path路径中。
  * 最后，好的，结束了。
  * <p>
- *  不使用上班的方式加载依赖包的话就需要通过代码加载配置环境变量的方式，这种方式比较灵活，推荐使用。这样就没要在每个系统都放一个依赖文件了
- *  代码方式如：RuntimeTest2.initSigarLibraryPath();通System.setProperty("java.library.path", "环境变量");
+ * 不使用上班的方式加载依赖包的话就需要通过代码加载配置环境变量的方式，这种方式比较灵活，推荐使用。这样就没要在每个系统都放一个依赖文件了
+ * 代码方式如：RuntimeTest2.initSigarLibraryPath();通System.setProperty("java.library.path", "环境变量");
  */
 
 import org.hyperic.sigar.*;
@@ -138,6 +138,8 @@ public class RuntimeTest {
         System.out.println("当前交换区使用量:    " + swap.getUsed() / 1024L + "K used");
         // 当前交换区剩余量
         System.out.println("当前交换区剩余量:    " + swap.getFree() / 1024L + "K free");
+        // 当前交换区使用率
+        System.out.println("当前交换区剩余量:    " + (double)swap.getUsed() / swap.getTotal()*100);
     }
 
     /**

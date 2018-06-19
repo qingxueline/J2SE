@@ -55,15 +55,20 @@ public class CollectionTest {
     //Multimap可以很容易地把一个键映射到多个值。换句话说，Multimap是把键映射到任意多个值的一般方式。
     @Test
     public void MultiMapDemoTest() {
-        Multimap<String, String> map = HashMultimap.create(); //Multimap是把键映射到任意多个值的一般方式
+        Multimap<String, Object> map = HashMultimap.create(); //Multimap是把键映射到任意多个值的一般方式
         map.put("name", "张"); //key相同时不会覆盖原value
         map.put("name", "李");
         map.put("name", "朱");
+        map.put("1", "1");
+        map.put("2", "2");
+        map.removeAll("name");
         System.out.println(map); //{a=[1, 2, 3]}
         System.out.println("集合：" + map.get("name")); //返回的是集合
+        Collection c = map.get("name");
+        System.out.println(c.size());
         System.out.println("集合个数:" + map.size()); //返回所有”键-单个值映射”的个数,而非不同键的个数
         System.out.println("不同key的个数：" + map.keySet().size()); //返回不同key的个数
-        Map<String, Collection<String>> mapView = map.asMap();
+        Map<String, Collection<Object>> mapView = map.asMap();
         System.out.println(mapView);
     }
 
