@@ -4,7 +4,6 @@ package com.somnus.thread.multi_001.sync002;
  * 所以代码中哪个线程先执行synchronized关键字的方法，哪个线程就持有该方法所属对象的锁（Lock），
  * 
  * 在静态方法上加synchronized关键字，表示锁定.class类，类一级别的锁（独占.class类）。
- * @author alienware
  *
  */
 public class MultiThread {
@@ -37,7 +36,7 @@ public class MultiThread {
 		//俩个不同的对象
 		final MultiThread m1 = new MultiThread();
 		final MultiThread m2 = new MultiThread();
-		
+
 		Thread t1 = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -46,7 +45,7 @@ public class MultiThread {
 		});
 		
 		Thread t2 = new Thread(new Runnable() {
-			@Override 
+			@Override
 			public void run() {
 				m2.printNum("b");
 			}
@@ -54,6 +53,5 @@ public class MultiThread {
 		
 		t1.start();
 		t2.start();
-		
 	}
 }
