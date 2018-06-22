@@ -15,7 +15,7 @@ import java.util.*;
  * @project J2SE
  * @package com.somnus.map
  * @date 2018/06/22 11:41
- * @description
+ * @description 就2个字符数组的交集
  */
 @Log4j
 public class HashMapTest {
