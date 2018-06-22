@@ -17,6 +17,7 @@ public class HashMap {
                 }
             }).start();
         }
+
         // 同时启动10个线程，去进行i++计算，看看实际结果
         for (int i = 0; i < 10; i++) {
             new Thread(new Runnable() {
