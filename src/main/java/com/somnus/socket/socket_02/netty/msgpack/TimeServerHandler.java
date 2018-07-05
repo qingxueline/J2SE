@@ -3,8 +3,6 @@ package com.somnus.socket.socket_02.netty.msgpack;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
-import java.util.List;
-
 public class TimeServerHandler extends ChannelHandlerAdapter {
 
     @Override
@@ -14,7 +12,10 @@ public class TimeServerHandler extends ChannelHandlerAdapter {
             BaseResponse response = (BaseResponse) msg;
             System.out.println("server>> status:" + response.getStatus() + " message:" + response.getMessage());
 
-            //相应给客户端，必须使用BaseResponse对象，否则解码器无法解析。
+            /**
+             * 相应给客户端，必须使用BaseResponse对象，否则解码器无法解析，因为现在服务的和客户端使用的是同一个解码器。
+             * 如果请求格式和响应格式需求要求不一样，那么必须给服务端和客户端定义不同的解码器。
+             */
             response.setMessage("服务器成功接收信息");
             ctx.write(response);
         } finally {
