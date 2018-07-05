@@ -4,6 +4,9 @@ import com.somnus.socket.socket_02.utils.GzipUtils;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 public class ServerHandler extends ChannelHandlerAdapter {
 
     @Override
@@ -12,15 +15,15 @@ public class ServerHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("...............服务端接收到信息");
+
         Req req = (Req) msg;
         System.out.println("Server : " + req.getId() + ", " + req.getName() + ", " + req.getRequestMessage());
 
-//        byte[] attachment = GzipUtils.ungzip(req.getAttachment());
-//		String path = System.getProperty("user.dir") + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources" + File.separatorChar + "001.jpg";
-//        FileOutputStream fos = new FileOutputStream(path);
-//        fos.write(attachment);
-//        fos.close();
+        byte[] attachment = GzipUtils.ungzip(req.getAttachment());
+        String path = System.getProperty("user.dir") + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources" + File.separatorChar + "002.jpg";
+        FileOutputStream fos = new FileOutputStream(path);
+        fos.write(attachment);
+        fos.close();
 
         //响应内容
         ctx.writeAndFlush(resp(req));
