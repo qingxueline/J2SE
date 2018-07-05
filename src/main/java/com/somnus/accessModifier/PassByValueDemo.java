@@ -15,7 +15,7 @@ public class PassByValueDemo {
 	char[] ch = { 'a', 'b', 'c',97 };   
 	public void change(int in, String str, char[] ch) {   
 		in = 10;
-        str = "test ok";   
+        str = "Serialize ok";
         ch[0] = 'g';   
     }   
 	public static void main(String args[]){   

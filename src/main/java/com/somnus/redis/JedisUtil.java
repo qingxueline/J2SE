@@ -1565,8 +1565,8 @@ public class JedisUtil {
 
         Jedis jedis = JedisUtil.getInstance().getJedis();
         for (int i = 0; i < 10; i++) {
-            jedis.set("test", "test");
-            System.out.println(i + "==" + jedis.get("test"));
+            jedis.set("Serialize", "Serialize");
+            System.out.println(i + "==" + jedis.get("Serialize"));
 
         }
         JedisUtil.getInstance().returnJedis(jedis);

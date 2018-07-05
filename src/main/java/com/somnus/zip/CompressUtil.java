@@ -271,6 +271,6 @@ public class CompressUtil {
 	
 	public static void main(String[] args) throws Throwable{
 		//gunzip(new File("c:/CreateMchtAccIn_20130521.txt.gz"), false);
-		gzip(new File("target/classes/test.txt"), false);
+		gzip(new File("target/classes/Serialize.txt"), false);
 	}
 }

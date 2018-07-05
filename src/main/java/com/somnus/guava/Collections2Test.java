@@ -36,13 +36,18 @@ public class Collections2Test {
         times.add(91299990701L);
         times.add(9320001010L);
         times.add(9920170621L);
-        Collection<String> timeStrCol = Collections2.transform(times, new Function<Long, String>() {
+
+        Function<Long, String> fun = new Function<Long, String>() {
             @Nullable
             @Override
             public String apply(@Nullable Long input) {
+                //处理业务逻辑..........
+                System.out.println("input = " + input);
                 return new SimpleDateFormat("yyyy-MM-dd").format(input);//时间格式化
             }
-        });
+        };
+        Collection<String> timeStrCol = Collections2.transform(times, fun);
+
         System.out.println(timeStrCol);
     }
 
@@ -50,7 +55,8 @@ public class Collections2Test {
     @Test
     public void TransformDemo2Test() {
         List<String> list = Lists.newArrayList("abcde", "good", "happiness");
-        //确保容器中的字符串长度不超过5
+
+        //确保容器中的字符串长度不超过5,超过5的部分被截取
         Function<String, String> f1 = new Function<String, String>() {
             @Nullable
             @Override
@@ -58,7 +64,8 @@ public class Collections2Test {
                 return input.length() > 5 ? input.substring(0, 5) : input;
             }
         };
-        //转成大写
+
+        //将截取好的字符串转成大写
         Function<String, String> f2 = new Function<String, String>() {
             @Nullable
             @Override
@@ -66,24 +73,26 @@ public class Collections2Test {
                 return input.toUpperCase();
             }
         };
+
+        //多个组合传进去
         Function<String, String> function = Functions.compose(f1, f2);
         Collection<String> results = Collections2.transform(list, function);
+
         System.out.println(results);
     }
 
     //集合操作：交集、差集、并集
     @Test
     public void CollectionsDemoTest() {
-        Set<Integer> set1= Sets.newHashSet(1,2,3,4,5);
-        Set<Integer> set2=Sets.newHashSet(3,4,5,6);
-        Sets.SetView<Integer> inter=Sets.intersection(set1,set2); //交集
+        Set<Integer> set1 = Sets.newHashSet(1, 2, 3, 4, 5);
+        Set<Integer> set2 = Sets.newHashSet(3, 4, 5, 6);
+        Sets.SetView<Integer> inter = Sets.intersection(set1, set2); //交集
         System.out.println(inter);
-        Sets.SetView<Integer> diff=Sets.difference(set1,set2); //差集,在A中不在B中
+        Sets.SetView<Integer> diff = Sets.difference(set1, set2); //差集,在A中不在B中
         System.out.println(diff);
-        Sets.SetView<Integer> union=Sets.union(set1,set2); //并集
+        Sets.SetView<Integer> union = Sets.union(set1, set2); //并集
         System.out.println(union);
     }
-
 
 
 }

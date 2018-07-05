@@ -7,10 +7,10 @@ public enum SeasonEnum {
 	//注：枚举写在最前面，否则编译出错
     SPRING, SUMMER, AUTUMN, WINTER;
 
-    private final static String position = "test";
+    private final static String position = "Serialize";
 
     public static SeasonEnum getSeason() {
-        if ("test".equals(position))
+        if ("Serialize".equals(position))
             return SPRING;
         else
             return WINTER;

@@ -23,7 +23,7 @@ public class FilePath {
     public void print1(){
         /**
          *  path不以’/'开头时，默认是从此类所在的包下取资源；
-         * /E:/github/J2SE/target/test-classes/com/somnus/
+         * /E:/github/J2SE/target/Serialize-classes/com/somnus/
          */
         String path = getClass().getResource("").getPath();
         System.out.println(path);
@@ -33,7 +33,7 @@ public class FilePath {
     public void print2(){
         /**
          * path以’/'开头时，则是从ClassPath根下获取；
-         * /E:/github/J2SE/target/test-classes//
+         * /E:/github/J2SE/target/Serialize-classes//
          */
         String path = getClass().getResource("/").getPath();
         System.out.println(path);
@@ -54,7 +54,7 @@ public class FilePath {
     public void print4(){
     	/**
     	 * path为空就直接是从ClassPath根下获取
-    	 * /E:/github/J2SE/target/test-classes
+    	 * /E:/github/J2SE/target/Serialize-classes
     	 */
         String path = getClass().getClassLoader().getResource("").getPath();
         System.out.println(path);
