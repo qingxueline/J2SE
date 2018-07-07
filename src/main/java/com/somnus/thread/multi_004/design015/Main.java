@@ -5,7 +5,7 @@ import java.util.Random;
 public class Main {
 
 	public static void main(String[] args) {
-		
+		//创建master,并且在master内部装置20个worker线程
 		Master master = new Master(new Worker(), 20);
 		Random r = new Random();
 		for(int i = 1; i <= 100; i++){

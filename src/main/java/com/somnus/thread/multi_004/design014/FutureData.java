@@ -17,8 +17,8 @@ public class FutureData implements Data{
 		//如果没装载，进行装载真实对象
 		this.realData = realData;
 		isReady = true;
-		//进行通知
-		notify();
+		//唤醒等待的程序，但是并没有把锁释放，notify方法是不释放锁的。
+		this.notify();
 	}
 
 	@Override
@@ -26,7 +26,8 @@ public class FutureData implements Data{
 		//如果没装载好 程序就一直处于阻塞状态
 		while(!isReady){
 			try {
-				wait();
+				//等待唤醒
+				this.wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

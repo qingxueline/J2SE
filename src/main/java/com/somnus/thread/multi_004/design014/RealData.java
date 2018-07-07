@@ -3,7 +3,8 @@ package com.somnus.thread.multi_004.design014;
 public class RealData implements Data{
 
 	private String result ;
-	
+
+	//这里模拟一个dao数据库操作
 	public RealData (String queryStr){
 		System.out.println("根据" + queryStr + "进行查询，这是一个很耗时的操作..");
 		try {

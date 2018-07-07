@@ -9,7 +9,7 @@ public class FutureClient {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				//3 这个新的线程可以去慢慢的加载真实对象，然后传递给代理对象
+				//3 这个新的线程可以去慢慢的加载真实对象，然后传递给代理对象。模拟查询数据库业务.....
 				RealData realData = new RealData(queryStr);
 				futureData.setRealData(realData);
 			}
