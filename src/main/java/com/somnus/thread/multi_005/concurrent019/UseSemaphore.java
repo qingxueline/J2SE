@@ -37,10 +37,8 @@ public class UseSemaphore {
 			e.printStackTrace();
 		}
         
-        //System.out.println(semp.getQueueLength());
-        
-        
-        
+//        System.out.println(semp.getQueueLength());
+
         // 退出线程池  
         exec.shutdown();  
     }  

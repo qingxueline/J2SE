@@ -7,6 +7,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 public class UseFuture implements Callable<String>{
+
 	private String para;
 	
 	public UseFuture(String para){

@@ -6,8 +6,11 @@ import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
 public class UseReentrantReadWriteLock {
 
+	//读写锁对象
 	private ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
+	//读锁
 	private ReadLock readLock = rwLock.readLock();
+	//写锁
 	private WriteLock writeLock = rwLock.writeLock();
 	
 	public void read(){
@@ -40,46 +43,22 @@ public class UseReentrantReadWriteLock {
 		
 		final UseReentrantReadWriteLock urrw = new UseReentrantReadWriteLock();
 		
-		Thread t1 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				urrw.read();
-			}
-		}, "t1");
-		Thread t2 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				urrw.read();
-			}
-		}, "t2");
-		Thread t3 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				urrw.write();
-			}
-		}, "t3");
-		Thread t4 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				urrw.write();
-			}
-		}, "t4");		
-		
-//		t1.start();
-//		t2.start();
-		
-//		t1.start(); // R 
+		Thread t1 = new Thread(() -> urrw.read(), "t1");
+		Thread t2 = new Thread(() -> urrw.read(), "t2");
+		Thread t3 = new Thread(() -> urrw.write(), "t3");
+		Thread t4 = new Thread(() -> urrw.write(), "t4");
+
+		//读读共享
+		t1.start();
+		t2.start();
+
+		//读写互斥
+//		t1.start(); // R
 //		t3.start(); // W
-		
-		t3.start();
-		t4.start();
-		
-		
-		
-		
-		
-		
-		
-		
+
+		//写写互斥
+//		t3.start();
+//		t4.start();
+
 	}
 }

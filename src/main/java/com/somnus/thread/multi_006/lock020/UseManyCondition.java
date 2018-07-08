@@ -7,6 +7,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class UseManyCondition {
 
 	private ReentrantLock lock = new ReentrantLock();
+
+	//一个lock产生多个Condition对象
 	private Condition c1 = lock.newCondition();
 	private Condition c2 = lock.newCondition();
 	
@@ -14,6 +16,8 @@ public class UseManyCondition {
 		try {
 			lock.lock();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "进入方法m1等待..");
+
+			//使当前线程等待它暗示或 interrupted，等待被其他线程唤醒
 			c1.await();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "方法m1继续..");
 		} catch (Exception e) {
@@ -27,6 +31,8 @@ public class UseManyCondition {
 		try {
 			lock.lock();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "进入方法m2等待..");
+
+			//使当前线程等待它暗示或 interrupted，等待被其他线程唤醒
 			c1.await();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "方法m2继续..");
 		} catch (Exception e) {
@@ -40,6 +46,8 @@ public class UseManyCondition {
 		try {
 			lock.lock();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "进入方法m3等待..");
+
+			//使当前线程等待它暗示或 interrupted，等待被其他线程唤醒
 			c2.await();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "方法m3继续..");
 		} catch (Exception e) {
@@ -53,6 +61,8 @@ public class UseManyCondition {
 		try {
 			lock.lock();
 			System.out.println("当前线程：" +Thread.currentThread().getName() + "唤醒..");
+
+			//唤醒所有等待线程。
 			c1.signalAll();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,39 +84,14 @@ public class UseManyCondition {
 	}
 	
 	public static void main(String[] args) {
-		
-		
+
 		final UseManyCondition umc = new UseManyCondition();
-		Thread t1 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				umc.m1();
-			}
-		},"t1");
-		Thread t2 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				umc.m2();
-			}
-		},"t2");
-		Thread t3 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				umc.m3();
-			}
-		},"t3");
-		Thread t4 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				umc.m4();
-			}
-		},"t4");
-		Thread t5 = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				umc.m5();
-			}
-		},"t5");
+
+		Thread t1 = new Thread(() -> umc.m1(),"t1");
+		Thread t2 = new Thread(() -> umc.m2(),"t2");
+		Thread t3 = new Thread(() -> umc.m3(),"t3");
+		Thread t4 = new Thread(() -> umc.m4(),"t4");
+		Thread t5 = new Thread(() -> umc.m5(),"t5");
 		
 		t1.start();	// c1
 		t2.start();	// c1
