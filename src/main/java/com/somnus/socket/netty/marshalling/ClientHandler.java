@@ -1,6 +1,6 @@
 package com.somnus.socket.netty.marshalling;
 
-import com.somnus.socket.socket_02.utils.GzipUtils;
+import com.somnus.socket.utils.GzipUtils;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.ReferenceCountUtil;
