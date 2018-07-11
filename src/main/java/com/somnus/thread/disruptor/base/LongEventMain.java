@@ -3,6 +3,7 @@ package com.somnus.thread.disruptor.base;
 import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.YieldingWaitStrategy;
@@ -27,7 +28,15 @@ public class LongEventMain {
 		//YieldingWaitStrategy 的性能是最好的，适合用于低延迟的系统。在要求极高性能且事件处理线数小于CPU逻辑核心数的场景中，推荐使用此策略；例如，CPU开启超线程的特性
 		WaitStrategy YIELDING_WAIT = new YieldingWaitStrategy();
 		*/
-		
+
+		/**
+		 * 构造参数说明
+		 * eventFactory：事件工厂
+		 * ringBufferSize:初始化RingBuffer缓存区大小
+		 * executor：线程池
+		 * producerType：生产模式。支持多生产者-多消费者，单生产者-单消费者等，还支持非常复杂的棱形消费等。
+		 * waitStrategy：策略模式
+		 */
 		//创建disruptor
 		Disruptor<LongEvent> disruptor = new Disruptor<LongEvent>(factory, ringBufferSize, executor, ProducerType.SINGLE, new YieldingWaitStrategy());
 		// 连接消费事件方法
@@ -39,6 +48,7 @@ public class LongEventMain {
 		//发布事件
 		RingBuffer<LongEvent> ringBuffer = disruptor.getRingBuffer();
 
+
 		//生产者
 		LongEventProducer producer = new LongEventProducer(ringBuffer); 
 		//LongEventProducerWithTranslator producer = new LongEventProducerWithTranslator(ringBuffer);
@@ -49,15 +59,7 @@ public class LongEventMain {
 			//Thread.sleep(1000);
 		}
 
-		
 		disruptor.shutdown();//关闭 disruptor，方法会堵塞，直至所有的事件都得到处理；
 		executor.shutdown();//关闭 disruptor 使用的线程池；如果需要的话，必须手动关闭， disruptor 在 shutdown 时不会自动关闭；
-		
-		
-		
-		
-		
-		
-		
 	}
 }

@@ -14,6 +14,7 @@ import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.SequenceBarrier;
 import com.lmax.disruptor.YieldingWaitStrategy;
 
+//测试使用TradeHandler做消息处理器
 public class Main1 {
 
     public static void main(String[] args) throws Exception {

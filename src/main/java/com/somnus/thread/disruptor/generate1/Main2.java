@@ -11,6 +11,7 @@ import com.lmax.disruptor.SequenceBarrier;
 import com.lmax.disruptor.WorkHandler;
 import com.lmax.disruptor.WorkerPool;
 
+//测试使用WorkerPool做消息处理器
 public class Main2 {
     public static void main(String[] args) throws InterruptedException {
         int BUFFER_SIZE = 1024;

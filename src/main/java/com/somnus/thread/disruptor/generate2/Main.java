@@ -11,6 +11,7 @@ import com.lmax.disruptor.dsl.EventHandlerGroup;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.somnus.thread.disruptor.generate1.Trade;
 
+//复杂的棱形操作
 public class Main {  
     public static void main(String[] args) throws InterruptedException {  
        

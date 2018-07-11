@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.lmax.disruptor.EventHandler;
 import com.lmax.disruptor.WorkHandler;
 
+//使用EventProcessor或者WorkerPool作为消息处理器
 public class TradeHandler implements EventHandler<Trade>, WorkHandler<Trade> {  
 	  
     @Override  

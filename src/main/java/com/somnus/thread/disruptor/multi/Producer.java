@@ -6,14 +6,7 @@ import java.util.UUID;
 import com.lmax.disruptor.EventTranslatorOneArg;
 import com.lmax.disruptor.RingBuffer;
 
-/**
- * <B>系统名称：</B><BR>
- * <B>模块名称：</B><BR>
- * <B>中文类名：</B><BR>
- * <B>概要说明：</B><BR>
- * @author 北京尚学堂（alienware）
- * @since 2015年11月23日
- */
+//生产者
 public class Producer {
 
 	private final RingBuffer<Order> ringBuffer;
@@ -40,6 +33,5 @@ public class Producer {
 			ringBuffer.publish(sequence);
 		}
 	}
-	
-	
+
 }
