@@ -1,20 +1,27 @@
 package com.somnus.thread.disruptor.base;
 
 import java.nio.ByteBuffer;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.*;
 
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.YieldingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 
+/**
+ * @author lyl
+ */
 public class LongEventMain {
 
-	public static void main(String[] args) throws Exception {
-		//创建缓冲池
-		ExecutorService  executor = Executors.newCachedThreadPool();
+	public static void main(String[] args) throws InterruptedException {
+		//创建线程工厂
+		ThreadFactory threadFactory = new ThreadFactory() {
+			@Override
+			public Thread newThread(Runnable r) {
+				return new Thread(r);
+			}
+		};
+
 		//创建工厂
 		LongEventFactory factory = new LongEventFactory();
 		//创建bufferSize ,也就是RingBuffer大小，必须是2的N次方
@@ -38,8 +45,8 @@ public class LongEventMain {
 		 * waitStrategy：策略模式
 		 */
 		//创建disruptor
-		Disruptor<LongEvent> disruptor = new Disruptor<LongEvent>(factory, ringBufferSize, executor, ProducerType.SINGLE, new YieldingWaitStrategy());
-		// 连接消费事件方法
+		Disruptor<LongEvent> disruptor = new Disruptor<LongEvent>(factory, ringBufferSize, threadFactory, ProducerType.SINGLE, new YieldingWaitStrategy());
+		// 消费事件注册，连接消费者
 		disruptor.handleEventsWith(new LongEventHandler());
 		// 启动
 		disruptor.start();
@@ -49,17 +56,16 @@ public class LongEventMain {
 		RingBuffer<LongEvent> ringBuffer = disruptor.getRingBuffer();
 
 
-		//生产者
+		//生产者，将来数据写入到RingBuffer
 		LongEventProducer producer = new LongEventProducer(ringBuffer); 
 		//LongEventProducerWithTranslator producer = new LongEventProducerWithTranslator(ringBuffer);
 		ByteBuffer byteBuffer = ByteBuffer.allocate(8);
 		for(long l = 0; l<100; l++){
 			byteBuffer.putLong(0, l);
 			producer.onData(byteBuffer);
-			//Thread.sleep(1000);
+//			Thread.sleep(1000);
 		}
 
-		disruptor.shutdown();//关闭 disruptor，方法会堵塞，直至所有的事件都得到处理；
-		executor.shutdown();//关闭 disruptor 使用的线程池；如果需要的话，必须手动关闭， disruptor 在 shutdown 时不会自动关闭；
+		disruptor.shutdown();//关闭 disruptor，方法会堵塞，直至所有的事件都得到处理；disruptor关闭后，RingBuffer里面的数据才会被GC回收。
 	}
 }
