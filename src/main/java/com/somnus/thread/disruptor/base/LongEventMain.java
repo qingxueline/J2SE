@@ -48,7 +48,7 @@ public class LongEventMain {
 		Disruptor<LongEvent> disruptor = new Disruptor<LongEvent>(factory, ringBufferSize, threadFactory, ProducerType.SINGLE, new YieldingWaitStrategy());
 		// 消费事件注册，连接消费者
 		disruptor.handleEventsWith(new LongEventHandler());
-		// 启动
+		// 启动Disruptor，启动所有线程，主要是消费者对应的EventProcessor侦听线程，消费者事件处理器开始侦听RingBuffer中的消息
 		disruptor.start();
 		
 		//Disruptor 的事件发布过程是一个两阶段提交的过程：
