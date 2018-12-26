@@ -48,7 +48,7 @@ public class QRCodeUtil {
      * 生成二维码(内嵌LOGO)
      *
      * @param content      内容
-     * @param logoPath      LOGO地址
+     * @param logoPath     LOGO地址
      * @param destPath     存放目录
      * @param fileName     文件名
      * @param needCompress 是否压缩LOGO
@@ -71,7 +71,7 @@ public class QRCodeUtil {
      * 生成二维码(内嵌LOGO)
      *
      * @param content  内容
-     * @param logoPath  LOGO地址
+     * @param logoPath LOGO地址
      * @param destPath 存储地址
      * @throws Exception
      */
@@ -106,7 +106,7 @@ public class QRCodeUtil {
      * 生成二维码(内嵌LOGO)
      *
      * @param content      内容
-     * @param logoPath      LOGO地址
+     * @param logoPath     LOGO地址
      * @param output       输出流
      * @param needCompress 是否压缩LOGO
      * @throws Exception
@@ -177,7 +177,7 @@ public class QRCodeUtil {
      * 生成二维码的方法
      *
      * @param content      目标URL
-     * @param logoPath      LOGO图片地址
+     * @param logoPath     LOGO图片地址
      * @param needCompress 是否压缩LOGO
      * @return 二维码图片
      * @throws Exception
@@ -208,7 +208,7 @@ public class QRCodeUtil {
      * 插入LOGO
      *
      * @param source       二维码图片
-     * @param logoPath      LOGO图片地址
+     * @param logoPath     LOGO图片地址
      * @param needCompress 是否压缩
      * @throws Exception
      */
@@ -253,15 +253,16 @@ public class QRCodeUtil {
 
         // 生成二维码
         String text = "https://www.baidu.com/";
-        String logoPath = "d:\\1.jpg";
-        String destPath = "d:\\";
-        QRCodeUtil.encode(text, logoPath, destPath, "111111111", true);
-        QRCodeUtil.encode(text, destPath);
+        String logoPath = "d:" + File.separator + "1.jpg";
+        String destPath = "d:" + File.separator;
+        String fileName = Identities.get28LenNonce();
+        QRCodeUtil.encode(text, logoPath, destPath, fileName, true);
+//        QRCodeUtil.encode(text, destPath);
 
         //解析二维码
-//        String destPath1 = "d:\\12404057.jpg";
-//        String result = decode(destPath1);
-//        System.out.println(result);
+        String destPath1 = "d:" + File.separator + fileName + ".png";
+        String result = decode(destPath1);
+        System.out.println(result);
 
 
     }
