@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.OutputStream;
 import java.util.Hashtable;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * 二维码工具类
@@ -49,14 +48,14 @@ public class QRCodeUtil {
      * 生成二维码(内嵌LOGO)
      *
      * @param content      内容
-     * @param imgPath      LOGO地址
+     * @param logoPath      LOGO地址
      * @param destPath     存放目录
      * @param fileName     文件名
      * @param needCompress 是否压缩LOGO
      * @throws Exception
      */
-    public static void encode(String content, String imgPath, String destPath, String fileName, boolean needCompress) throws Exception {
-        BufferedImage image = QRCodeUtil.createImage(content, imgPath, needCompress);
+    public static void encode(String content, String logoPath, String destPath, String fileName, boolean needCompress) throws Exception {
+        BufferedImage image = QRCodeUtil.createImage(content, logoPath, needCompress);
         mkdirs(destPath);
         String file;
         if (fileName == null) {
@@ -72,12 +71,12 @@ public class QRCodeUtil {
      * 生成二维码(内嵌LOGO)
      *
      * @param content  内容
-     * @param imgPath  LOGO地址
+     * @param logoPath  LOGO地址
      * @param destPath 存储地址
      * @throws Exception
      */
-    public static void encode(String content, String imgPath, String destPath) throws Exception {
-        QRCodeUtil.encode(content, imgPath, destPath, null, false);
+    public static void encode(String content, String logoPath, String destPath) throws Exception {
+        QRCodeUtil.encode(content, logoPath, destPath, null, false);
     }
 
     /**
@@ -107,13 +106,13 @@ public class QRCodeUtil {
      * 生成二维码(内嵌LOGO)
      *
      * @param content      内容
-     * @param imgPath      LOGO地址
+     * @param logoPath      LOGO地址
      * @param output       输出流
      * @param needCompress 是否压缩LOGO
      * @throws Exception
      */
-    public static void encode(String content, String imgPath, OutputStream output, boolean needCompress) throws Exception {
-        BufferedImage image = QRCodeUtil.createImage(content, imgPath, needCompress);
+    public static void encode(String content, String logoPath, OutputStream output, boolean needCompress) throws Exception {
+        BufferedImage image = QRCodeUtil.createImage(content, logoPath, needCompress);
         ImageIO.write(image, FORMAT_NAME, output);
     }
 
@@ -178,12 +177,12 @@ public class QRCodeUtil {
      * 生成二维码的方法
      *
      * @param content      目标URL
-     * @param imgPath      LOGO图片地址
+     * @param logoPath      LOGO图片地址
      * @param needCompress 是否压缩LOGO
      * @return 二维码图片
      * @throws Exception
      */
-    private static BufferedImage createImage(String content, String imgPath, boolean needCompress) throws Exception {
+    private static BufferedImage createImage(String content, String logoPath, boolean needCompress) throws Exception {
         Map<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
         hints.put(EncodeHintType.CHARACTER_SET, CHARSET);
@@ -197,11 +196,11 @@ public class QRCodeUtil {
                 image.setRGB(x, y, bitMatrix.get(x, y) ? BLACK : WHITE);
             }
         }
-        if (imgPath == null || "".equals(imgPath)) {
+        if (logoPath == null || "".equals(logoPath)) {
             return image;
         }
         // 插入图片
-        QRCodeUtil.insertImage(image, imgPath, needCompress);
+        QRCodeUtil.insertImage(image, logoPath, needCompress);
         return image;
     }
 
@@ -209,17 +208,17 @@ public class QRCodeUtil {
      * 插入LOGO
      *
      * @param source       二维码图片
-     * @param imgPath      LOGO图片地址
+     * @param logoPath      LOGO图片地址
      * @param needCompress 是否压缩
      * @throws Exception
      */
-    private static void insertImage(BufferedImage source, String imgPath, boolean needCompress) throws Exception {
-        File file = new File(imgPath);
+    private static void insertImage(BufferedImage source, String logoPath, boolean needCompress) throws Exception {
+        File file = new File(logoPath);
         if (!file.exists()) {
-            log.warn("" + imgPath + "   该文件不存在！");
+            log.warn("logo not exist:" + logoPath);
             return;
         }
-        Image src = ImageIO.read(new File(imgPath));
+        Image src = ImageIO.read(new File(logoPath));
         int width = src.getWidth(null);
         int height = src.getHeight(null);
         // 压缩LOGO
@@ -254,9 +253,9 @@ public class QRCodeUtil {
 
         // 生成二维码
         String text = "https://www.baidu.com/";
-        String imagePath = "d:\\1.jpg";
+        String logoPath = "d:\\1.jpg";
         String destPath = "d:\\";
-        QRCodeUtil.encode(text, imagePath, destPath, null, true);
+        QRCodeUtil.encode(text, logoPath, destPath, "111111111", true);
         QRCodeUtil.encode(text, destPath);
 
         //解析二维码
