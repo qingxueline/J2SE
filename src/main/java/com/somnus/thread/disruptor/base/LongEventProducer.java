@@ -23,10 +23,10 @@ public class LongEventProducer {
 	 * 它的参数会用过事件传递给消费者
 	 */
 	public void onData(ByteBuffer bb){
-		//1.可以把ringBuffer看做一个事件队列，那么next就是得到下面一个事件槽
+		//1.获取序号。可以把ringBuffer看做一个事件队列，那么next就是得到下面一个事件序号槽
 		long sequence = ringBuffer.next();
 		try {
-			//2.用上面的索引取出一个空的事件用于填充（获取该序号对应的事件对象）
+			//2.根据序号，取得对象，然后将新的值覆盖到旧对象上。这样原来对象在Disruptor没有被销毁前，对象就不会被销毁，减少了大量的GC处理。
 			LongEvent event = ringBuffer.get(sequence);
 			//3.获取要通过事件传递的业务数据
 			event.setValue(bb.getLong(0));

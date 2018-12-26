@@ -2,8 +2,9 @@ package com.somnus.thread.disruptor.base;
 
 /**
  * 生产对象
+ * http://ifeve.com/disruptor-getting-started/
  * @author lyl
- */ //http://ifeve.com/disruptor-getting-started/
+ */
 public class LongEvent {
 
     private long value;

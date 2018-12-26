@@ -1,9 +1,17 @@
 package com.somnus.thread.disruptor.base;
 
 import com.lmax.disruptor.EventFactory;
-// 需要让disruptor为我们创建事件，我们同时还声明了一个EventFactory来实例化Event对象。
-public class LongEventFactory implements EventFactory { 
 
+/**
+ * 使用事件工厂EventFactory，来实例化Event事件对象。
+ * @author lyl
+ */
+public class LongEventFactory implements EventFactory {
+
+    /**
+     * 创造生产的事件（产品）
+     * @return 。
+     */
     @Override 
     public Object newInstance() { 
         return new LongEvent(); 

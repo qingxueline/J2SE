@@ -3,6 +3,7 @@ package com.somnus.thread.disruptor.base;
 import java.nio.ByteBuffer;
 import java.util.concurrent.*;
 
+import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.YieldingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
@@ -22,10 +23,10 @@ public class LongEventMain {
 			}
 		};
 
-		//创建工厂
-		LongEventFactory factory = new LongEventFactory();
+		//生产事件工厂，负责生产对象
+		EventFactory eventFactory = new LongEventFactory();
 		//创建bufferSize ,也就是RingBuffer大小，必须是2的N次方
-		int ringBufferSize = 1024 * 1024; // 
+		int ringBufferSize = 1024 * 1024;
 
 		/**
 		//BlockingWaitStrategy 是最低效的策略，但其对CPU的消耗最小并且在各种不同部署环境中能提供更加一致的性能表现
@@ -38,28 +39,28 @@ public class LongEventMain {
 
 		/**
 		 * 构造参数说明
-		 * eventFactory：事件工厂
-		 * ringBufferSize:初始化RingBuffer缓存区大小
+		 * eventFactory：事件工厂，负责生产对象
+		 * ringBufferSize:初始化RingBuffer缓存区大小，初始化的时候就会生产事件对象，把RingBuffer填充满
 		 * executor：线程池
 		 * producerType：生产模式。支持多生产者-多消费者，单生产者-单消费者等，还支持非常复杂的棱形消费等。
 		 * waitStrategy：策略模式
 		 */
 		//创建disruptor
-		Disruptor<LongEvent> disruptor = new Disruptor<LongEvent>(factory, ringBufferSize, threadFactory, ProducerType.SINGLE, new YieldingWaitStrategy());
+		Disruptor<LongEvent> disruptor = new Disruptor<LongEvent>(eventFactory, ringBufferSize, threadFactory, ProducerType.SINGLE, new YieldingWaitStrategy());
 		// 消费事件注册，连接消费者
 		disruptor.handleEventsWith(new LongEventHandler());
 		// 启动Disruptor，启动所有线程，主要是消费者对应的EventProcessor侦听线程，消费者事件处理器开始侦听RingBuffer中的消息
 		disruptor.start();
-		
-		//Disruptor 的事件发布过程是一个两阶段提交的过程：
-		//发布事件
+
+
+		//获取RingBuffer，RingBuffer是用来存储生产对象，然后给消费者消费
 		RingBuffer<LongEvent> ringBuffer = disruptor.getRingBuffer();
-
-
-		//生产者，将来数据写入到RingBuffer
+		//生产者，将来生产对象写入到RingBuffer的序号槽里面
 		LongEventProducer producer = new LongEventProducer(ringBuffer); 
 		//LongEventProducerWithTranslator producer = new LongEventProducerWithTranslator(ringBuffer);
 		ByteBuffer byteBuffer = ByteBuffer.allocate(8);
+
+		//定义数据
 		for(long l = 0; l<100; l++){
 			byteBuffer.putLong(0, l);
 			producer.onData(byteBuffer);

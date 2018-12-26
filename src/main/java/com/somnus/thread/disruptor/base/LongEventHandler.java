@@ -2,11 +2,19 @@ package com.somnus.thread.disruptor.base;
 
 import com.lmax.disruptor.EventHandler;
 
-//我们还需要一个事件消费者，也就是一个事件处理器。这个事件处理器简单地把事件中存储的数据打印到终端：
+/**
+ * 消费事件处理器，负责消费事件（即消费者）
+ * @author lyl
+ */
 public class LongEventHandler implements EventHandler<LongEvent>  {
-
+	/**
+	 * 消费事件，负责消费
+	 * @param longEvent 。
+	 * @param l 。
+	 * @param b 。
+	 */
 	@Override
-	public void onEvent(LongEvent longEvent, long l, boolean b) throws Exception {
+	public void onEvent(LongEvent longEvent, long l, boolean b) {
 		//消费逻辑
 		System.out.println(longEvent.getValue()); 		
 	}
