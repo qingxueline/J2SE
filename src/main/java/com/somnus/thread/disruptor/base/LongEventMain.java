@@ -58,11 +58,11 @@ public class LongEventMain {
 		//生产者，将来生产对象写入到RingBuffer的序号槽里面
 		LongEventProducer producer = new LongEventProducer(ringBuffer); 
 		//LongEventProducerWithTranslator producer = new LongEventProducerWithTranslator(ringBuffer);
-		ByteBuffer byteBuffer = ByteBuffer.allocate(8);
-
-		//定义数据
-		for(long l = 0; l<100; l++){
-			byteBuffer.putLong(0, l);
+		//分配字节缓存区，定义数据
+		ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024);
+		for(long i = 0; i<100; i++){
+			//向字节缓存区写入数据
+			byteBuffer.putLong(0, i);
 			producer.onData(byteBuffer);
 //			Thread.sleep(1000);
 		}

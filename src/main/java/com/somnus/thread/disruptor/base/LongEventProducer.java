@@ -17,10 +17,12 @@ public class LongEventProducer {
 	public LongEventProducer(RingBuffer<LongEvent> ringBuffer){
 		this.ringBuffer = ringBuffer;
 	}
-	
+
 	/**
+	 *
 	 * onData用来发布事件，每调用一次就发布一次事件
 	 * 它的参数会用过事件传递给消费者
+	 * @param bb 字节缓存区
 	 */
 	public void onData(ByteBuffer bb){
 		//1.获取序号。可以把ringBuffer看做一个事件队列，那么next就是得到下面一个事件序号槽
@@ -28,7 +30,7 @@ public class LongEventProducer {
 		try {
 			//2.根据序号，取得对象，然后将新的值覆盖到旧对象上。这样原来对象在Disruptor没有被销毁前，对象就不会被销毁，减少了大量的GC处理。
 			LongEvent event = ringBuffer.get(sequence);
-			//3.获取要通过事件传递的业务数据
+			//3.从字节缓存区获取数据（用户提供），然后覆盖到生产对象上，最后等于是覆盖了RingBuffer的sequence序号上的旧数据
 			event.setValue(bb.getLong(0));
 		} finally {
 			//4.发布事件
