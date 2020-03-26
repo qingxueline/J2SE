@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
@@ -36,7 +33,7 @@ public class ExcelReader {
      * @return
      */
     public static List<String[]> readExcel(String filePath){
-        String fullPath = ExcelReader.class.getClassLoader().getResource(filePath).getPath();
+        String fullPath = Objects.requireNonNull(ExcelReader.class.getClassLoader().getResource(filePath)).getPath();
         Workbook wb = null;
         try {
             InputStream in = new BufferedInputStream(new FileInputStream(fullPath));
@@ -103,7 +100,7 @@ public class ExcelReader {
                         value = "";
                         break;
                     case HSSFCell.CELL_TYPE_BOOLEAN :
-                        value = (cell.getBooleanCellValue() == true ? "Y" : "N");
+                        value = (cell.getBooleanCellValue() ? "Y" : "N");
                         break;
                     default :
                         value = "";
