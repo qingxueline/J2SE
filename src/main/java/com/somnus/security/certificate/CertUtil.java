@@ -1,6 +1,9 @@
 package com.somnus.security.certificate;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import sun.misc.BASE64Encoder;
+import sun.security.pkcs10.PKCS10;
 
 import java.io.*;
 import java.security.InvalidKeyException;
@@ -26,6 +29,7 @@ import javax.crypto.NoSuchPaddingException;
  * @author lyl
  * @version 2020/3/19 0019 15:17:08
  */
+@Slf4j
 public class CertUtil {
 
     public CertUtil() {
@@ -531,11 +535,92 @@ public class CertUtil {
             alias = (String) enemas.nextElement();
         }
         if (ks.isKeyEntry(alias)) {
+            System.out.println("==============================alias:"+alias);
             PrivateKey prikey = (PrivateKey) ks.getKey(alias, certPass.toCharArray());
+            System.out.println("==============================prikey:"+prikey.getFormat());
             //获取数字证书
             X509Certificate cert = (X509Certificate) ks.getCertificate(alias);
             System.out.println("cert = " + cert);
         }
 
+    }
+
+    /**
+     * 通过P10文件提取公钥
+     *
+     * @param p10str
+     * @return
+     */
+    public static String getPublicKeyByP10(String p10str) {
+        try {
+            PKCS10 pkcs10 = new PKCS10(java.util.Base64.getMimeDecoder().decode(removeTagP10(p10str)));
+            PublicKey publickey = pkcs10.getSubjectPublicKeyInfo();
+            String publicKeyStr = java.util.Base64.getMimeEncoder().encodeToString(publickey.getEncoded());
+            publicKeyStr = wrapPublicKey(publicKeyStr);
+            log.debug(String.format("publicKeyStr：%s%s", System.getProperty("line.separator"), publicKeyStr));
+            return publicKeyStr;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 封装公钥信息
+     *
+     * @param publicKeyStr 公钥文件
+     * @return .
+     */
+    public static String wrapPublicKey(String publicKeyStr) {
+        String begin = "-----BEGIN PUBLIC KEY-----";
+        String end = "-----END PUBLIC KEY-----";
+        publicKeyStr = String.format("%s%s%s%s%s", begin, System.getProperty("line.separator"), publicKeyStr.trim(), System.getProperty("line.separator"), end);
+        log.debug(String.format("p10str：%s%s", System.getProperty("line.separator"), publicKeyStr));
+        return publicKeyStr;
+    }
+
+    /**
+     * 封装P10成为请求文件格式
+     *
+     * @param p10str P10文件
+     * @return .
+     */
+    public static String wrapP10(String p10str) {
+        String begin = "-----BEGIN CERTIFICATE REQUEST-----";
+        String end = "-----END CERTIFICATE REQUEST-----";
+        p10str = String.format("%s%s%s%s%s", begin, System.getProperty("line.separator"), p10str.trim(), System.getProperty("line.separator"), end);
+        log.debug(String.format("p10str：%s%s", System.getProperty("line.separator"), p10str));
+        return p10str;
+    }
+
+    /**
+     * 移除P10请求的开始和结束标记
+     *
+     * @param p10str P10文件
+     * @return .
+     */
+    public static String removeTagP10(String p10str) {
+        String begin = "-----BEGIN CERTIFICATE REQUEST-----";
+        String end = "-----END CERTIFICATE REQUEST-----";
+        if (StringUtils.startsWith(p10str, begin)) {
+            p10str = StringUtils.substring(p10str, begin.length(), p10str.length() - end.length());
+        }
+        log.debug(String.format("p10str：%s%s", System.getProperty("line.separator"), p10str));
+        return p10str.trim();
+    }
+
+    /**
+     * 移除公钥开始和结束标记
+     *
+     * @param publicKeyStr 公钥文件
+     * @return .
+     */
+    public static String removeTagPublicKey(String publicKeyStr) {
+        String begin = "-----BEGIN PUBLIC KEY-----";
+        String end = "-----END PUBLIC KEY-----";
+        if (StringUtils.startsWith(publicKeyStr, begin)) {
+            publicKeyStr = StringUtils.substring(publicKeyStr, begin.length(), publicKeyStr.length() - end.length());
+        }
+        log.debug(String.format("publicKeyStr：%s%s", System.getProperty("line.separator"), publicKeyStr));
+        return publicKeyStr.trim();
     }
 }

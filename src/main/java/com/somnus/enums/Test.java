@@ -62,10 +62,10 @@ public class Test {
     
     @org.junit.Test
     public void orderStateEnum(){
-        for(OrderStateEnum order : OrderStateEnum.values()){
-            System.out.println(order);
-            System.out.println(order.getName());
-        }
+//        for(OrderStateEnum order : OrderStateEnum.values()){
+//            System.out.println(order);
+//            System.out.println(order.getName());
+//        }
     }
     
 }

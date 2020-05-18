@@ -1,4 +1,4 @@
-package com.somnus;
+package com.somnus.string;
 
 /**
  * 三种方式实现字符串反转

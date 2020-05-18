@@ -1,7 +1,9 @@
 package com.somnus.date;
 
 import java.util.Calendar;
+import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.junit.Test;
 
@@ -16,6 +18,7 @@ public class JodaDate {
     @Test
     public void now(){
         System.out.println(DateTime.now().toString("yyyy-MM-dd"));
+        System.out.println(DateTime.now().toString("yyyyMMddHHmmss"));
     }
     
     @Test

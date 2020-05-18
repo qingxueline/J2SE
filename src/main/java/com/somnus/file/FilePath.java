@@ -1,4 +1,4 @@
-package com.somnus;
+package com.somnus.file;
 
 import java.io.IOException;
 import java.io.InputStream;
