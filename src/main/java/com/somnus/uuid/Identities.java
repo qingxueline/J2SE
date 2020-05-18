@@ -8,12 +8,8 @@ import java.util.Random;
 import java.util.UUID;
 
 /**
- * @author Somnus
- * @version V1.0
- * @Title: Identities.java
- * @Package com.somnus.uuid
- * @Description: TODO
- * @date 2015年5月28日 下午5:17:11
+ * @author lyl
+ * @date 2020年4月15日11:41:48
  */
 public class Identities {
 
@@ -22,6 +18,13 @@ public class Identities {
     private static final String RANDOM_STRING_RANGE = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     private static final String RANDOM_NUMBER_RANGE = "0123456789";
+
+    public static String[] chars = new String[] { "a", "b", "c", "d", "e", "f",
+            "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+            "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5",
+            "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I",
+            "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
+            "W", "X", "Y", "Z" };
 
     /**
      * 封装JDK自带的UUID, 通过Random数字生成, 中间无-分割
@@ -72,7 +75,8 @@ public class Identities {
         Date date = new Date();
         DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         int hashCodeV = UUID.randomUUID().toString().hashCode();
-        if (hashCodeV < 0) {//有可能是负数
+        if (hashCodeV < 0) {
+            //有可能是负数
             hashCodeV = -hashCodeV;
         }
 
@@ -87,12 +91,30 @@ public class Identities {
         return df.format(date) + String.format("%014d", hashCodeV);
     }
 
+    public static String generateShortUuid() {
+        StringBuffer shortBuffer = new StringBuffer();
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        for (int i = 0; i < 8; i++) {
+            String str = uuid.substring(i * 4, i * 4 + 4);
+            int x = Integer.parseInt(str, 16);
+            shortBuffer.append(chars[x % 0x3E]);
+        }
+        return shortBuffer.toString();
+    }
+    public static String generateUuid() {
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        return uuid;
+    }
+
+
     public static void main(String[] args) {
         System.out.println("28LenNonce:" + Identities.get28LenNonce());
         System.out.println("32LenUUID:" + Identities.get32LenUUID());
         System.out.println("36LenUUID:" + Identities.get36LenUUID());
         System.out.println("randomString:" + Identities.randomString(10, true));
         System.out.println("randomLong:" + Identities.randomLong());
+        System.out.println("generateUuid:" + Identities.generateUuid());
+        System.out.println("generateShortUuid:" + Identities.generateShortUuid());
     }
 
 }
