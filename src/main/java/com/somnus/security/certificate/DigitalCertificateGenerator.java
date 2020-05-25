@@ -1,19 +1,12 @@
 package com.somnus.security.certificate;
 
 import com.google.common.collect.Lists;
-import com.somnus.security.Coder;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.tools.ant.filters.StringInputStream;
-import org.bouncycastle.asn1.DERSet;
-import org.bouncycastle.asn1.pkcs.CertificationRequestInfo;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
-import org.bouncycastle.asn1.x509.X509Name;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import sun.misc.BASE64Encoder;
 import sun.security.pkcs10.PKCS10;
-import sun.security.pkcs10.PKCS10Attributes;
-import sun.security.rsa.RSAPublicKeyImpl;
 import sun.security.tools.keytool.CertAndKeyGen;
 import sun.security.x509.*;
 
@@ -23,7 +16,6 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
 import java.util.*;
 
 /**
@@ -496,7 +488,7 @@ public class DigitalCertificateGenerator {
                             "DXO6Cz0pk/nZ\n" +
                             "-----END CERTIFICATE REQUEST-----";
 
-            p10str = CertUtil.removeTagP10(p10str);
+            p10str = CertHelper.removeTagP10(p10str);
             //创建证书请求
             PKCS10 pkcs10 = new PKCS10(Base64.getMimeDecoder().decode(p10str));
             X500Name x500name = pkcs10.getSubjectName();
@@ -545,7 +537,7 @@ public class DigitalCertificateGenerator {
                             "HHpMwjJvoLDXlcUSBtCPsgFXbxT0DqVBCDBZkEQoEKVKEZU94ATgszPXXiE97ZaI\n" +
                             "DXO6Cz0pk/nZ\n" +
                             "-----END CERTIFICATE REQUEST-----";
-            p10str = CertUtil.removeTagP10(p10str);
+            p10str = CertHelper.removeTagP10(p10str);
             //创建证书请求
             PKCS10CertificationRequest pkcs10CertificationRequest = new PKCS10CertificationRequest(Base64.getMimeDecoder().decode(p10str));
             System.out.println(pkcs10CertificationRequest.getSubject());

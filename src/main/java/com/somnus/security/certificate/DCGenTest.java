@@ -2,6 +2,7 @@ package com.somnus.security.certificate;
 
 import org.junit.Test;
 
+import java.security.PrivateKey;
 import java.util.Date;
 
 /**
@@ -70,7 +71,7 @@ public class DCGenTest {
         String keyStorePass = "8329XFE8&^1";
         String certPass = "8329XFE8&^1";
         String keyStoreType = "jks";
-        CertUtil.printCert(certPath, certPass, keyStoreType, keyStorePass);
+        CertHelper.printCert(certPath, certPass, keyStoreType, keyStorePass);
     }
 
     /***
@@ -149,5 +150,38 @@ public class DCGenTest {
     @Test
     public void cer() {
         DigitalCertificateGenerator.cer();
+    }
+    @Test
+    public void getPrivateKey(){
+        String key = "-----BEGIN RSA PRIVATE KEY-----\n" +
+                "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCukiPx8ATXBR6MT2G/1XLNVDYP\n" +
+                "81ce7XcV/rkduwnmUbi7fwgXOnndUkUd2LcIg/Z3Ey7iTbwNY/Yjxp5Eq8hjZI1Gj0Yn+82iioJ6\n" +
+                "B4a09zLSXQEjgB/NamnOE3K9s8rST/+DMCuAvLX9P4qVocrjy8y6Dq+1ycZuYNnQWsQoYf09Qn2v\n" +
+                "pjpURzYNxGCNQJ0HQMts9RDmoiyCL3MqiSzOo9v0km8bUl5LjpZMDMIXf8hRmHkGg/LD7XYE7YX9\n" +
+                "gSTorropBVXMc+0EwizUH0t+CUs8EjkEhgMWMlyX4Y+9TF82rJi50p0CcZFnI1KfV7pprQcJmLql\n" +
+                "00HSuNqs/V+LAgMBAAECggEAacaHHSuP4zFo5x+aXQBahWuHLncFzOmaBKvJQuh4ASR3SLSaFGkM\n" +
+                "OjyFQKZ1kSVUi6YF/H2ZeoudMuRANd/YldDxgVWC7us2GEzQ7lvtFW3LT4enDvmtS2w1G/bQyX1N\n" +
+                "Yc2zRqxDT8gIhaCgujXEl+5+6CXJ9d6C65KnqAW3YberH+X42jGciRyMiIG4+Kgpk7tbLBVfe+V0\n" +
+                "9cVY3Cm/FcabaS0OwbqWL1u+Ee1XA3MamsG++yvT8Mi8uJ7NObEWvwJH3N/N19MgNcLVihKOiz8W\n" +
+                "yGtcs6Y+/cCuGzAFir8BmlXL5Qjnr9ywJFEKamYxbASsg3pE7qKDULnV1kk+8QKBgQD08YQsRIRj\n" +
+                "KvObwvb+mrBtBjypSsIhSPQaLn4oFv2vPRT3c4SJ36HBKSA/vxYTEStrm+pE09fzeBRxJvIvzWmM\n" +
+                "0dRiaxdRtyE6fsgwOkB7cAuttDcUrxKoew5s0TqDZ5uYBTihydg90XGJUYwVFSNq2oFe74wI3H5W\n" +
+                "Akho5JkhtwKBgQC2c2wn7Ru8tlXmaJJYw9ErTGyQjpP5oECqN5HkwcH1GB3ScRbRcxJVgvcGiS0+\n" +
+                "Kbv5SfqgDxFYgJcwJ5f+UM0HPkmVARgR4beTYT/Im9Rdch+xT/zWl62kJoISpAutVKSDn2mVeGLH\n" +
+                "UG6X1xNZKUsEcMRgX9ZBbUafYvdYZQ2gzQKBgQCbZaY/F3EOIS/QQA7HVIhdgrl1hfJHf6st+RUc\n" +
+                "hgmH5a6pluYdOn26uEa3apmsmxX6/T3RUL0Ov73oU5cO8LjoGC8wCVUQCKjSHaEPx8UlCt694zmW\n" +
+                "q8OglAGA0/TVbSPvfFCDhDTmczwerFe9AF4p6lptSniDHrAgDO63bWAhXQKBgDzF+bLa8jBL9BUJ\n" +
+                "pCXZJCVuEYOdWoD99kw8smYmfDrty5E7hkRCNksxkqMksmNQd4K0N711B2wZeULbDW/y7jiJcO0n\n" +
+                "LiNWslVvQVXLQlPWHeRsJmY8o+RXx1/6MMGNvjbxtLPLI+wMSKpfQ9yhOpHCFkeb5Lxqb+nLh2R0\n" +
+                "VLPJAoGBAOviYyVyL9rsnI8JPQ8u/ziVOgpnQIjYm9qm5iWuNFFuBW04xfSpMNrzVHqZIw2pwcLz\n" +
+                "c8jH0BTn+rVUgE2z/OowHeVTBnH+EQf9T5SlXJiMipRk2aSFvKPVJW3KjalOMJx9xTvFcr1P/6dW\n" +
+                "o/VmFAJARU9ciVUd73E4/dVRLhJ8\n" +
+                "-----END RSA PRIVATE KEY-----";
+        try {
+            PrivateKey privateKey = CertHelper.getPrivateKey(key);
+            System.out.println(privateKey);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

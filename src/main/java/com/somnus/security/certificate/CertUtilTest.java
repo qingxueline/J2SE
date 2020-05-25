@@ -19,9 +19,9 @@ public class CertUtilTest {
     @Test
     public void testCertVerifing() {
         //同一机构颁发的证书可以完成签名验证
-        CertUtil.verifySign(path + "RootDXCert.cer", path + "signedCert.cer");
+        CertHelper.verifySign(path + "RootDXCert.cer", path + "signedCert.cer");
         //不同一机构颁发的证书可以完成签名验证失败
-        CertUtil.verifySign(path + "RootDXCert.cer", path + "wuming.cer");
+        CertHelper.verifySign(path + "RootDXCert.cer", path + "wuming.cer");
         System.out.println("test passed!");
     }
 
@@ -30,7 +30,7 @@ public class CertUtilTest {
      */
     @Test
     public void testCertValidityDays() {
-        CertUtil.verifyValidityDays(path + "signedCert.cer");
+        CertHelper.verifyValidityDays(path + "signedCert.cer");
         System.out.println("test passed!");
     }
 
@@ -39,7 +39,7 @@ public class CertUtilTest {
      */
     @Test
     public void testGetAllAliasesInfo() {
-        System.out.println(CertUtil.allAliasesInPFX(path + "RootDXCert.pfx", "123"));
+        System.out.println(CertHelper.allAliasesInPFX(path + "RootDXCert.pfx", "123"));
     }
 
     /***
@@ -47,8 +47,8 @@ public class CertUtilTest {
      */
     @Test
     public void testPublicKeyInCert() {
-        System.out.println("cer:" + CertUtil.publicKeyInCert(path + "signedCert.cer"));
-        System.out.println("pfx:" + CertUtil.publicKeyInPFX(path + "RootDXCert.pfx", "123", "中国电信A"));
+        System.out.println("cer:" + CertHelper.publicKeyInCert(path + "signedCert.cer"));
+        System.out.println("pfx:" + CertHelper.publicKeyInPFX(path + "RootDXCert.pfx", "123", "中国电信A"));
     }
 
     /***
@@ -56,7 +56,7 @@ public class CertUtilTest {
      */
     @Test
     public void testPrivateKey() {
-        System.out.println(CertUtil.privateKeyInPFX(path + "RootDXCert.pfx", "123", "中国电信A", "456"));
+        System.out.println(CertHelper.privateKeyInPFX(path + "RootDXCert.pfx", "123", "中国电信A", "456"));
     }
 
     /**
@@ -66,16 +66,16 @@ public class CertUtilTest {
     public void testKeyStoreEncodeAndDecode() {
         String msg = "你好啊，这是测试数据。";
 
-        byte[] data = CertUtil.encodeByPFXPublicKey(path + "RootDXCert.pfx", "123", "中国电信A", msg.getBytes());
+        byte[] data = CertHelper.encodeByPFXPublicKey(path + "RootDXCert.pfx", "123", "中国电信A", msg.getBytes());
         System.out.println(new String(data));
-        data = CertUtil.decodeByPFXPrivateKey(path + "RootDXCert.pfx", "123", "中国电信A", "456", data);
+        data = CertHelper.decodeByPFXPrivateKey(path + "RootDXCert.pfx", "123", "中国电信A", "456", data);
         System.out.println(new String(data));
 
         System.out.println("==============");
 
-        data = CertUtil.encodeByPFXPublicKey(path + "RootDXCert.pfx", "123", "中国电信A", msg.getBytes());
+        data = CertHelper.encodeByPFXPublicKey(path + "RootDXCert.pfx", "123", "中国电信A", msg.getBytes());
         System.out.println(new String(data));
-        data = CertUtil.decodeByPFXPrivateKey(path + "RootDXCert.pfx", "123", "中国电信A", "456", data);
+        data = CertHelper.decodeByPFXPrivateKey(path + "RootDXCert.pfx", "123", "中国电信A", "456", data);
         System.out.println(new String(data));
     }
 
@@ -86,17 +86,17 @@ public class CertUtilTest {
     public void testCerFileEncodeAndDecode() {
         String msg = "你好啊，这是测试数据。";
         //数字证书公钥编码，密钥库私钥解码
-        byte[] encodeBytes = CertUtil.encodeByCert(path + "signedCert.cer", msg.getBytes());
+        byte[] encodeBytes = CertHelper.encodeByCert(path + "signedCert.cer", msg.getBytes());
         System.out.println(new String(encodeBytes));
-        byte[] decodeBytes = CertUtil.decodeByPFXPrivateKey(path + "RootDXCert.pfx", "123", "中国电信A", "456", encodeBytes);
+        byte[] decodeBytes = CertHelper.decodeByPFXPrivateKey(path + "RootDXCert.pfx", "123", "中国电信A", "456", encodeBytes);
         System.out.println(new String(decodeBytes));
 
         System.out.println("=============================");
 
         //密钥库私钥编码，数字证书公钥解码，
-        encodeBytes = CertUtil.encodeByPFXPrivateKey(path + "RootDXCert.pfx", "123", "中国电信A", "456", msg.getBytes());
+        encodeBytes = CertHelper.encodeByPFXPrivateKey(path + "RootDXCert.pfx", "123", "中国电信A", "456", msg.getBytes());
         System.out.println(new String(encodeBytes));
-        decodeBytes = CertUtil.decodeByCert(path + "signedCert.cer", encodeBytes);
+        decodeBytes = CertHelper.decodeByCert(path + "signedCert.cer", encodeBytes);
         System.out.println(new String(decodeBytes));
     }
 }
