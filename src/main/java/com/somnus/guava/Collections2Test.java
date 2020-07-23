@@ -23,7 +23,9 @@ public class Collections2Test {
     public void FilterDemoTest() {
         List<String> list = Lists.newArrayList("moon", "dad", "refer", "son");
         Collection<String> palindromeList = Collections2.filter(list, input -> {
-            return new StringBuilder(input).reverse().toString().equals(input); //找回文串,反转后相同的就输出
+            //返回等于moon的字符串
+            String str = "moon";
+            return str.equals(input);
         });
         System.out.println(palindromeList);
 
