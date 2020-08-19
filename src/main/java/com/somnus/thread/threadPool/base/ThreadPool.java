@@ -107,9 +107,6 @@ public class ThreadPool {
      *                        idle threads will wait for new tasks before terminating.
      * @param unit            keepAliveTime时间单位 the time unit for the {@code keepAliveTime}
      *                        argument
-     * @param workQueue       阻塞任务队列 the queue to use for holding tasks before they are
-     *                        executed. This queue will hold only the {@code Runnable} tasks
-     *                        submitted by the {@code execute} method.
      * @param delimiter       分割符
      */
     private String buildKey(String name, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, int wattingCount, String delimiter) {

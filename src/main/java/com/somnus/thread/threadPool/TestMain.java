@@ -9,7 +9,9 @@ public class TestMain {
         ViThreadPoolManager.getInstance().execute(new Runnable() {
             @Override
             public void run() {
-                System.out.println("xxxxxxxxxxxxxxxxxx");
+                for (int i = 0;i<100;i++){
+                    System.out.println("xxxxxxxxxxxxxxxxxx");
+                }
             }
         });
     }

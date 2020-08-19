@@ -40,4 +40,9 @@ public class ViThreadPoolManager extends ThreadPoolManager {
          */
         return 20;
     }
+
+    @Override
+    protected int wattingCount() {
+        return 1;
+    }
 }
