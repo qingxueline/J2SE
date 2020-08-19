@@ -5,7 +5,7 @@ package com.somnus.thread.threadPool;
  * @version 2020/8/19 0019 14:41:10
  */
 
-import com.small.cell.common.thread.base.ThreadPoolManager;
+import com.somnus.thread.threadPool.base.ThreadPoolManager;
 
 /**
  * 当前类（子系统中定义的类）继承 ThreadPoolManager 类，设置相关参数

@@ -1,8 +1,7 @@
 package com.somnus.thread.threadPool.base;
 
 import com.google.common.collect.Maps;
-import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
-
+import io.netty.util.concurrent.DefaultThreadFactory;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -55,7 +54,7 @@ public class ThreadPool {
                         , keepAliveTime
                         , unit
                         , workQueue
-                        , new CustomizableThreadFactory(name)
+                        , new DefaultThreadFactory(name)
                         , defaultHandler);
                 THREAD_POOL_MAP.put(key, executor);
             }
@@ -89,7 +88,7 @@ public class ThreadPool {
                         , keepAliveTime
                         , unit
                         , new LinkedBlockingQueue<Runnable>(this.wattingCount)
-                        , new CustomizableThreadFactory(name)
+                        , new DefaultThreadFactory(name)
                         , defaultHandler);
                 THREAD_POOL_MAP.put(key, executor);
             }
