@@ -1,9 +1,17 @@
 package com.somnus.security.certificate;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+import sun.security.x509.X509CertImpl;
 
-import java.security.PrivateKey;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.*;
+import java.security.cert.*;
+import java.security.cert.Certificate;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * DCGenTest
@@ -28,7 +36,7 @@ public class DCGenTest {
 //        DigitalCertificateGenerator.generatePFX(wuming);
 
         KeyStoreInfo keyStore = new KeyStoreInfo("smallcellkeypair", "8329XFE8&^1", "8329XFE8&^1", "CT SAMLL CEL", "SAMLL CEL",
-                "GSTA", "TH", "GD", "CN", new Date(), 365L*500, path + "smallCellKeyPair.jks");
+                "GSTA", "TH", "GD", "CN", new Date(), 365L * 500, path + "smallCellKeyPair.jks");
         DigitalCertificateGenerator.generateJKS(keyStore);
 
 //        certInfo = new KeyStoreInfo("无名5", "789", "101", "7", "8", "9", "10",
@@ -151,8 +159,9 @@ public class DCGenTest {
     public void cer() {
         DigitalCertificateGenerator.cer();
     }
+
     @Test
-    public void getPrivateKey(){
+    public void getPrivateKey() {
         String key = "-----BEGIN RSA PRIVATE KEY-----\n" +
                 "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCukiPx8ATXBR6MT2G/1XLNVDYP\n" +
                 "81ce7XcV/rkduwnmUbi7fwgXOnndUkUd2LcIg/Z3Ey7iTbwNY/Yjxp5Eq8hjZI1Gj0Yn+82iioJ6\n" +
@@ -183,5 +192,104 @@ public class DCGenTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Test
+    public void tset() throws NoSuchAlgorithmException, CertificateException, InvalidKeyException, NoSuchProviderException, SignatureException, InvalidAlgorithmParameterException, CertPathValidatorException {
+        //小站证书
+        String cerStr = "-----BEGIN CERTIFICATE-----\n" +
+                "MIIDoTCCAomgAwIBAgIUUYV71Bx6hjw9Wh2mv2j+o/yquzYwDQYJKoZIhvcNAQEL\n" +
+                "BQAwWTELMAkGA1UEBhMCQ04xKDAmBgNVBAoMH0NoaW5hIFRlbGVjb20gR3Vhbmdk\n" +
+                "b25nIEFjYWRlbXkxIDAeBgNVBAMMF0d1YW5nZG9uZyBBY2FkZW15IFN1YkNBMB4X\n" +
+                "DTIwMDgwNTE0NTgyM1oXDTMwMDgwNTE0NTgyM1owWjELMAkGA1UEBhMCQ04xCzAJ\n" +
+                "BgNVBAgMAkdEMQ0wCwYDVQQKDARnc3RhMRQwEgYDVQQLDAtTTlRlc3QwMDAwMTEZ\n" +
+                "MBcGA1UEAwwQZ3N0YV9TTlRlc3QwMDAwMTCCASIwDQYJKoZIhvcNAQEBBQADggEP\n" +
+                "ADCCAQoCggEBANqXpQW5zS/XSMzQGjbQ5o+tPC06FLP0HEdkoC9pe36jn1uvWoQ2\n" +
+                "wzO936zx4efK+COfMvSEKMnVrJXavSvNRXCoBEdi2L6EPpSwuDynA0tmzoA7s1KN\n" +
+                "5Sk3naVOm0+ze040iVPwIT5EtAbGCBg9sHxUJTZuZ3m7Kkil+ZAVZVVOZpQ2yDBf\n" +
+                "8+/48fmT9zupluhBBoVsKX5ZppLpCuC+bZoatmgIAFvF259L/4A6q7GVsWbrNSsn\n" +
+                "ewYEVJ0ca99txt3gsIo6FlA5AV+eCNwZcycJX1yJlOicCm9sT5Lu9BqnN/qZHdQE\n" +
+                "k+IHxrY1afduemvsHERBtVO+cQI+X5W7n38CAwEAAaNgMF4wHQYDVR0OBBYEFK3J\n" +
+                "tpqSvdmkqjlZfULz1wucvajyMA4GA1UdDwEB/wQEAwIGwDAMBgNVHRMBAf8EAjAA\n" +
+                "MB8GA1UdIwQYMBaAFBAumQm2KLxVkRg5SM0P4iR++EoeMA0GCSqGSIb3DQEBCwUA\n" +
+                "A4IBAQC9xLR+B22+mH+HB5ilcRtt/Sr5+8o7Cbdcyx+lwEwewcbar0y1I7h6sk9d\n" +
+                "sjfZhwvkxh+poJdA/IcpZkFG/tGCXczDzJqIPUu6tZFQlB7VD/GWOb08uUGmJbPK\n" +
+                "9U1mwwdudxvl+i6MgxEQv3UoMNjIullkkR3EByLxRAVv3EERTPwO5LbbPAp38Gz8\n" +
+                "67UKTQZulB1Htq1rSkKlZo5gkeepUG8tNwApZjYoVJfPi/BPStIypiHKXPNSV7Et\n" +
+                "UGq7OOtLh8e5hn9T68SQdmnobwiH94k6TRx+OkP7vnqbqWny6E++DlMRmv3bZ8yA\n" +
+                "VnM+qjRm7gSAtooEYeL7skWj9oE5\n" +
+                "-----END CERTIFICATE-----";
+
+        String rootCaStr = "-----BEGIN CERTIFICATE-----\n" +
+                "MIIDpzCCAo+gAwIBAgIUBx2rWGwhULRX1BxPfHf7rTcH7gYwDQYJKoZIhvcNAQEL\n" +
+                "BQAwWjELMAkGA1UEBhMCQ04xKDAmBgNVBAoMH0NoaW5hIFRlbGVjb20gR3Vhbmdk\n" +
+                "b25nIEFjYWRlbXkxITAfBgNVBAMMGEd1YW5nZG9uZyBBY2FkZW15IFJvb3RDQTAg\n" +
+                "Fw0yMDAzMTExMTI3NTFaGA8yMDUwMDMxMTExMjc1MVowWjELMAkGA1UEBhMCQ04x\n" +
+                "KDAmBgNVBAoMH0NoaW5hIFRlbGVjb20gR3Vhbmdkb25nIEFjYWRlbXkxITAfBgNV\n" +
+                "BAMMGEd1YW5nZG9uZyBBY2FkZW15IFJvb3RDQTCCASIwDQYJKoZIhvcNAQEBBQAD\n" +
+                "ggEPADCCAQoCggEBAOvAgjoi0XamGfkn55NDYh3QFcQY/WpnqOcB8aFGaMNeM0qe\n" +
+                "S7+qMyuhdEfSMc2PRhld5fDHUIeC2yhqEIREVyU3b/1L6TcNWhPXT2mO2KtAPjxH\n" +
+                "/fOaw6FZ6s0C4kuA5pxEeZMbOq4XWrUdReMYf/Riqd+kH8k+Fjnkn+RKdny9JqLS\n" +
+                "OEBL7otNkTgbMoHkoF/MQeEGOBkQHWvi6ei3cG4KUtcr1o/yyhrFg5+16BuaOJTJ\n" +
+                "mThh6OD6qKAZEPzPPtRyFAHffKv9/OwAf4t3XFgLDqQbzfARoMo4j2n2hE/W0wZy\n" +
+                "7QnqZEGJ+PgpVSnEqWPTZXwln+5j7UQRtwKKcBkCAwEAAaNjMGEwHQYDVR0OBBYE\n" +
+                "FAtm4AdR4MYJ5zpV7tOv4uFRLEhbMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8E\n" +
+                "BTADAQH/MB8GA1UdIwQYMBaAFAtm4AdR4MYJ5zpV7tOv4uFRLEhbMA0GCSqGSIb3\n" +
+                "DQEBCwUAA4IBAQDi3+73YqT3B6VVCV7bxYaCUGEfYHJDlWDyFe5ygju4kr6lyzis\n" +
+                "FGXW7sY2OHAnUjS2UlLy/JIiWLz0WkQoVM22Pd5yoqhdG8oVSKJaBWuDjkzd7+LU\n" +
+                "eoAayZ4fsrhQGcuwT6qhhieGbRWrodCZaVjVsrTIdKmSHtPCNVhALc3Ca2ke+sow\n" +
+                "F6uL0U2tcixGtXeHN3fkxZQoYMFCCUqtuDQgyWOg9pUsrt+nhgL1+c/FQNKMsJFL\n" +
+                "9Eiuic/zkoZjLQROVomHSdVvc2eQBPAD38pYXmqlMLbhUrFsQEP0lxzT5aJkuWqD\n" +
+                "TFrRaZ9ygrxhMYOXN8MDliHw+r4GWv4Uw0fi\n" +
+                "-----END CERTIFICATE-----";
+        String subCaStr = "-----BEGIN CERTIFICATE-----\n" +
+                "MIIEEzCCAvugAwIBAgIUOpYHH04yR6Pq3Y7o7cKrGyk1uaswDQYJKoZIhvcNAQEL\n" +
+                "BQAwWjELMAkGA1UEBhMCQ04xKDAmBgNVBAoMH0NoaW5hIFRlbGVjb20gR3Vhbmdk\n" +
+                "b25nIEFjYWRlbXkxITAfBgNVBAMMGEd1YW5nZG9uZyBBY2FkZW15IFJvb3RDQTAe\n" +
+                "Fw0yMDAzMTExNjAwMDBaFw00MDAzMTExNjAwMDBaMFkxCzAJBgNVBAYTAkNOMSgw\n" +
+                "JgYDVQQKDB9DaGluYSBUZWxlY29tIEd1YW5nZG9uZyBBY2FkZW15MSAwHgYDVQQD\n" +
+                "DBdHdWFuZ2RvbmcgQWNhZGVteSBTdWJDQTCCASIwDQYJKoZIhvcNAQEBBQADggEP\n" +
+                "ADCCAQoCggEBANorJTu5/9gWmvB0qj4h1f9PizPlEOBHCq1lWPdCS2+Rg8FBUzdy\n" +
+                "i73GSlF6hiW83gQ+Ut+B7d/XKuU7U70Jc/2Bt7Ac723BBlwwrt2qUpKM2Ims+usV\n" +
+                "sR367c10KXFVlMh1z7hKBCyuIsQVtsgldR6h+CKqXOI+z2rJVOP2ULEcHsFMvJYa\n" +
+                "aFhUWO99JvfwWmD18uhigOFOga3EV/wuNT2WPRjNYTdFQyH41sHqgo0fUX4V1lqg\n" +
+                "iABHJhhr1BxU9V8uyZ0Y3i0uapnGuhUaUFTkEMNWWJ6e0sM/0bVrRzjbLzAP0vl3\n" +
+                "661cxqo6scCl8ncVlRJFjEjyq91D18oDNqkCAwEAAaOB0TCBzjAdBgNVHQ4EFgQU\n" +
+                "EC6ZCbYovFWRGDlIzQ/iJH74Sh4wDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQF\n" +
+                "MAMBAf8wawYDVR0gBGQwYjBgBgorBgEEAYGSSA0KMFIwUAYIKwYBBQUHAgEWRGh0\n" +
+                "dHA6Ly93d3cuY25jYS5uZXQvY3Mva25vd2xlZGdlL3doaXRlcGFwZXIvY3BzL25l\n" +
+                "dGNhdGVzdGNlcnRjcHMucGRmMB8GA1UdIwQYMBaAFAtm4AdR4MYJ5zpV7tOv4uFR\n" +
+                "LEhbMA0GCSqGSIb3DQEBCwUAA4IBAQDrVFQnMlT3yjZeOM29+b56D8We2xCf1rw6\n" +
+                "6rgpJfx1IEan7Oa+hLA1U8IYJpRb4yZRzfBh96nWZmxhToa30VBLKnPk2PEb6GoZ\n" +
+                "N5o9F1D6FuBLM9jKGwG3/TZuz1/L+CbkvNdcN12/ViKpiUgfBOMGPAxdNl5L+4ve\n" +
+                "ap5bmRuD8Bwfg+yWcqq9Z9TyV6cP6QBBr8SFE3Rs6zzcIBGVSVXPGgZvgxRvPXhA\n" +
+                "APu0U+ivfOQFLaRSxUoVqF2dUo00nZ/71rLn44blnQ5rRZoOGYLARvvtHsH8JsJS\n" +
+                "/mXpt94Q8bl5OKUge7/tznvdxM8OPB5nMq1zKl9T0QyaOThQH52A\n" +
+                "-----END CERTIFICATE-----";
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        X509Certificate rootCa = (X509Certificate) cf.generateCertificate(IOUtils.toInputStream(rootCaStr));
+        X509Certificate subCa = (X509Certificate) cf.generateCertificate(IOUtils.toInputStream(subCaStr));
+        X509Certificate cert = (X509Certificate) cf.generateCertificate(IOUtils.toInputStream(cerStr));
+        subCa.verify(rootCa.getPublicKey());
+        cert.verify(subCa.getPublicKey());
+        System.out.println(rootCa.getSigAlgName());
+
+        System.out.println("使用者信息：" + rootCa.getSubjectDN());
+        System.out.println("颁发者信息：" + rootCa.getIssuerDN());
+        System.out.println("颁发者信息：" + rootCa.getIssuerX500Principal().getName());
+
+        CertPathValidator certPathValidator = CertPathValidator.getInstance(CertPathValidator.getDefaultType());
+        TrustAnchor rootCaTrustAnchor = new TrustAnchor(rootCa, null);
+        TrustAnchor subCaStrTrustAnchor = new TrustAnchor(subCa, null);
+        Set<TrustAnchor> set = new HashSet<>();
+        set.add(rootCaTrustAnchor);
+        set.add(subCaStrTrustAnchor);
+        PKIXParameters parameters = new PKIXParameters(set);
+        CertificateFactory cf2 = CertificateFactory.getInstance("X.509");
+        InputStream inputStream = IOUtils.toInputStream(cerStr);
+        CertPath certPath = cf2.generateCertPath(inputStream);
+        certPathValidator.validate(certPath, parameters);
+
     }
 }

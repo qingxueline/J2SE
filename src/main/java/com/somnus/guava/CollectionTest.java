@@ -100,24 +100,22 @@ public class CollectionTest {
     public void TableDemoTest() {
         //记录学生在某门课上的成绩
         Table<String, String, Integer> table = HashBasedTable.create();
-        table.put("jack", "java", 100);
-        table.put("jack", "c", 90);
-        table.put("mike", "java", 93);
-        table.put("mike", "c", 100);
+        table.put("张三", "java", 100);
+        table.put("张三", "C语言", 90);
+        table.put("玛丽", "java", 93);
+        table.put("玛丽", "C语言", 100);
 
-        Integer i=table.row("jack").get("java")+table.row("jack").get("java");
-        table.put("jack","java",i);
         Set<Table.Cell<String, String, Integer>> cells = table.cellSet();
         for (Table.Cell<String, String, Integer> cell : cells) {
             System.out.println(cell.getRowKey() + " " + cell.getColumnKey() + " " + cell.getValue());
         }
 
-//        System.out.println(table.row("jack"));
+        System.out.println(table.row("张三"));
+        System.out.println(table.row("张三").get("java"));
 //        System.out.println(table);
 //        System.out.println(table.rowKeySet());
 //        System.out.println(table.columnKeySet());
 //        System.out.println(table.values());
-
 
 
 //        System.out.println("i = " + table.row("jack").get("java"));
@@ -139,14 +137,14 @@ public class CollectionTest {
         map.put(user2, "李");
 
 //        Map<User, Collection<String>> mapView = map.asMap();
-       for (Map.Entry<User, String> entry : map.entries()){
-           User user = entry.getKey();
-           System.out.println("username = " + user.getUsername());
-           System.out.println("password = " + user.getPassword());
+        for (Map.Entry<User, String> entry : map.entries()) {
+            User user = entry.getKey();
+            System.out.println("username = " + user.getUsername());
+            System.out.println("password = " + user.getPassword());
 
-           String x = entry.getValue();
-           System.out.println("x = " + x);
-       }
+            String x = entry.getValue();
+            System.out.println("x = " + x);
+        }
 
     }
 

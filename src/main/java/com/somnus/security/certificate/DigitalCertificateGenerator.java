@@ -558,33 +558,35 @@ public class DigitalCertificateGenerator {
         try {
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
             String cer = "-----BEGIN CERTIFICATE-----\n" +
-                    "MIIDxzCCAq+gAwIBAgIUav+usyElXxU2V/sKzU/vDhu/fNgwDQYJKoZIhvcNAQEL\n" +
+                    "MIIEDTCCAvWgAwIBAgIUP3s2ZiIua1ucPwjVCQJgwu8H8X0wDQYJKoZIhvcNAQEL\n" +
                     "BQAwWTELMAkGA1UEBhMCQ04xKDAmBgNVBAoMH0NoaW5hIFRlbGVjb20gR3Vhbmdk\n" +
                     "b25nIEFjYWRlbXkxIDAeBgNVBAMMF0d1YW5nZG9uZyBBY2FkZW15IFN1YkNBMB4X\n" +
-                    "DTIwMDUxMTA3NTI1NVoXDTMwMDUxMTA3NTI1NVowYTELMAkGA1UEBhMCQ04xCzAJ\n" +
-                    "BgNVBAgMAkdEMQswCQYDVQQHDAJUSDENMAsGA1UECgwER1NUQTESMBAGA1UECwwJ\n" +
-                    "U0FNTEwgQ0VMMRUwEwYDVQQDDAxTQU1MTCBDRUwgQ1QwggEiMA0GCSqGSIb3DQEB\n" +
-                    "AQUAA4IBDwAwggEKAoIBAQCQIn5+C7GickSH0cIYkRZLdvgqbXL1OJRgaE06MH9j\n" +
-                    "dUMNMXrn/qSl+kCPk+k4SmeTTvWLSz7jLUiRqvyO1l3AZqn/8QOyYabz2cg9eFvh\n" +
-                    "JWdRRRDtiGRUB9TeyaK5wzrwI0UiJ7gQxjFrfTmcO42r1b7cMZ2fjRuheP/y0X7e\n" +
-                    "CX1mA+WRYgXOFJNSa8GrU6rS5cKTyjD6Wj9RgTE6D7Y9w4BAUYARQpTS/LqiVW+9\n" +
-                    "XRuqzvR9NrEM63xdpH+zvsynWXGvt9I1hZpIsVOwlVrTV1EuuCUd8L1u+6Zuh6VX\n" +
-                    "xYtQ/E9muXXxWnHAgT+1YWedMtZRM12IHrK5Dr3BuhcnAgMBAAGjfzB9MB0GA1Ud\n" +
-                    "DgQWBBRE/GRB52/inWDbTgH03PcZMww3xTAOBgNVHQ8BAf8EBAMCBsAwDAYDVR0T\n" +
-                    "AQH/BAIwADAfBgNVHSMEGDAWgBQQLpkJtii8VZEYOUjND+IkfvhKHjAdBgNVHSUE\n" +
-                    "FjAUBggrBgEFBQcDAQYIKwYBBQUIAgIwDQYJKoZIhvcNAQELBQADggEBAJaCn/L2\n" +
-                    "AERjxPqn07W+P8yMqC5rHAxTP1/J+L4HRPSxZRtT2MwRXzFVPUN1gt0o7YgSakhT\n" +
-                    "SUQh/iq1CsCazLgocIjYOWBLbYELPpYfwBP7efweRxl7CfvwzLBDnXczivTvUY3E\n" +
-                    "p+QFCGkmejiChm9rBznEdr2InCfxj44dPnS0x5TAvedFXU8oJHWkG6E1I5Y3PT0Y\n" +
-                    "O7S0FPcHsmTyWISwsMp25pS5DGYVsR7ugpBOFlXqIL1Lkr5RFZklEzNAzgjCfAxg\n" +
-                    "8BVkTVtBa0vFfgT110AlHf+FjuJ/MigPEHL3qOqOaPcWTASVgFP3ag9PMmMffxT+\n" +
-                    "xBEH5Lai4qi59GI=\n" +
+                    "DTIwMDgwNTE1NTg1OFoXDTMwMDgwNTE1NTg1OFowcDELMAkGA1UEBhMCQ04xEjAQ\n" +
+                    "BgNVBAgMCUd1YW5nRG9uZzESMBAGA1UEBwwJR3VhbmdaaG91MQ0wCwYDVQQKDARH\n" +
+                    "U1RBMRMwEQYDVQQLDApTTUFMTCBDRUxMMRUwEwYDVQQDDAwxOTIuMTY4LjYuMTAw\n" +
+                    "ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCnLZgva/V488l7Wb/wxQdJ\n" +
+                    "DC4CfRyOhOFUjz+K3sEkdSAUVOhJ29rFidzdfyPQaAZaYevU62GNRkvviSNKjxZ7\n" +
+                    "+huRK0Ab1AaTCbecJicDKAlmB46DmU/BbBxxr6S8W2JH2vm2R3EwrKXcZ+24lRSD\n" +
+                    "0afsIlk5MN/GJ2vnbydulvmqHdw8VOms2Ks8YXc7I2qWzDOGNzJHbjJprKHqBQj3\n" +
+                    "d5MoxJi+XWqyx+070QKxujcDh//oTfp4C6t/6a3WnjqrzVF1AYTKITMpfSgf1v3l\n" +
+                    "7a8badgEvFtQQBoeT1ZQGSCxRtXzMS2OrKT96xn3vozzne4/SojL1W62kIdfKOht\n" +
+                    "AgMBAAGjgbUwgbIwHQYDVR0OBBYEFEbJG0fWdxCD56jk+s8Zitx1hym1MA4GA1Ud\n" +
+                    "DwEB/wQEAwIGwDAzBgNVHREELDAqghBnc3RhLmV4YW1wbGUuY29tghBnc3RhLmV4\n" +
+                    "bWFwbGUubmV0hwTAqAYKMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUEC6ZCbYo\n" +
+                    "vFWRGDlIzQ/iJH74Sh4wHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFCAICMA0G\n" +
+                    "CSqGSIb3DQEBCwUAA4IBAQAl1tyl4axV+KI0SldRH1v54qcVW17wJc+nOeHDWH6c\n" +
+                    "F4jOIvXrxL66yqb2IBm/j3ykTREb+E3lgL1BQ1Nn55BB+Gt62P5nTQ8hNQPsEo9D\n" +
+                    "a6nZZ6yWwhumJyD3o9EhDOgshYbbWU5lvj2jvBO1Kx0dEtC3z0p2S6sCsDSRv5S6\n" +
+                    "00caQ8PSW6qSEIZvAjEPgpE2J0Ee+Dz/aDZZaaWg2r1nso0/2WvjLRMrnmXexI/+\n" +
+                    "faSW9TkJ0bYQuBVWKO/MKdTg1vxj5IRSXBVNtbDnbSsG6E3B0OclqnfDBAfJ87q6\n" +
+                    "wLHMhZn3D5eQK3q1/O3me+boRYpvG6URLWe9X4QKuCjr\n" +
                     "-----END CERTIFICATE-----";
             InputStream input = IOUtils.toInputStream(cer);
             X509Certificate cert = (X509Certificate) cf.generateCertificate(input);
             PublicKey publicKey = cert.getPublicKey();
             BASE64Encoder base64Encoder = new BASE64Encoder();
             String publicKeyString = base64Encoder.encode(publicKey.getEncoded());
+            System.out.println(publicKeyString.length());
             System.out.println("-----------------公钥--------------------");
             System.out.println(publicKeyString);
             System.out.println("-----------------公钥--------------------");
