@@ -41,7 +41,7 @@ public class ThreadPool {
      *                        executed. This queue will hold only the {@code Runnable} tasks
      *                        submitted by the {@code execute} method.
      */
-    public ThreadPool(String name, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+    public ThreadPool(String name, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue,RejectedExecutionHandler handler) {
         synchronized (THREAD_POOL_MAP) {
             this.name = name;
             this.wattingCount = workQueue.size();
@@ -55,7 +55,7 @@ public class ThreadPool {
                         , unit
                         , workQueue
                         , new DefaultThreadFactory(name)
-                        , defaultHandler);
+                        , handler);
                 THREAD_POOL_MAP.put(key, executor);
             }
         }
@@ -75,7 +75,7 @@ public class ThreadPool {
      *                        argument
      * @param wattingCount    阻塞任务队列数
      */
-    public ThreadPool(String name, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, int wattingCount) {
+    public ThreadPool(String name, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, int wattingCount,RejectedExecutionHandler handler) {
         synchronized (THREAD_POOL_MAP) {
             this.name = name;
             this.wattingCount = (int) (wattingCount * 1.5);
@@ -89,7 +89,7 @@ public class ThreadPool {
                         , unit
                         , new LinkedBlockingQueue<Runnable>(this.wattingCount)
                         , new DefaultThreadFactory(name)
-                        , defaultHandler);
+                        , handler);
                 THREAD_POOL_MAP.put(key, executor);
             }
         }

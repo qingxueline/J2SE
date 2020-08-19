@@ -1,28 +1,35 @@
 package com.somnus.thread.threadPool.base;
 
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author lyl
  * @version 2020/8/19 0019 14:34:23
  */
-public abstract class ThreadPoolManager {
+public abstract class BaseThreadPoolManager {
     private ThreadPool executor = null;
 
-    public ThreadPoolManager() {
+    public BaseThreadPoolManager() {
         if (executor == null) {
             executor = new ThreadPool(getThreadPoolName()
                     , corePoolSize()
                     , maximumPoolSize()
                     , keepAliveTime()
                     , TimeUnit.SECONDS
-                    , wattingCount()
+                    , wattingCount(),
+                    getRejectedExecutionHandler()
             );
         }
     }
 
     public void execute(Runnable runnable) {
         executor.execute(runnable);
+    }
+
+    public ThreadPool getThreadPool() {
+        return this.executor;
     }
 
     /**
@@ -64,5 +71,13 @@ public abstract class ThreadPoolManager {
      */
     protected long keepAliveTime() {
         return 10;
+    }
+
+    /**
+     * 拒绝策略
+     * @return
+     */
+    protected RejectedExecutionHandler getRejectedExecutionHandler() {
+        return new ThreadPoolExecutor.AbortPolicy();
     }
 }
