@@ -151,4 +151,8 @@ public class ThreadPool {
     public int getTaskSzie() {
         return executor.getQueue().size();
     }
+
+    public ThreadPoolExecutor getThreadPoolExecutor() {
+        return this.executor;
+    }
 }
