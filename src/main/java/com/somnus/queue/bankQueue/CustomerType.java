@@ -1,7 +1,9 @@
 package com.somnus.queue.bankQueue;
 
 public enum CustomerType{
+	//客户类型
 	COMMON, EXPRESS, VIP;
+	@Override
 	public String toString(){
 		String name = null;
 		switch (this){

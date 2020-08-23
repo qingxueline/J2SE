@@ -1,5 +1,8 @@
 package com.somnus.queue.bankQueue;
 
+/**
+ * 号码管理器，单例
+ */
 public class NumberMachine{
 
 	private NumberMachine(){}

@@ -15,6 +15,7 @@ public class LampController{
 		/* 每隔10秒将当前绿灯变为红灯，并让下一个方向的灯变绿 */
 		ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 		timer.scheduleAtFixedRate(new Runnable(){
+			@Override
 			public void run(){
 				System.out.println("来啊");
 				currentLamp = currentLamp.blackOut();

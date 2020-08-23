@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.concurrent.Executors;
 
 /**
+ * 银行服务窗口
  * 没有把VIP窗口和快速窗口做成子类，是因为实际业务中的普通窗口可以随时被设置为VIP窗口和快速窗口。
  */
 public class ServiceWindow{
@@ -24,6 +25,7 @@ public class ServiceWindow{
 
 	public void start(){
 		Executors.newSingleThreadExecutor().execute(new Runnable(){
+			@Override
 			public void run(){
 				// 下面这种写法的运行效率低，最好是把while放在case下面
 				while (true){
@@ -43,6 +45,9 @@ public class ServiceWindow{
 		});
 	}
 
+	/**
+	 * 普通客户服务
+	 */
 	private void commonService(){
 		String windowName = "第" + number + "号" + type + "窗口";
 		System.out.println(windowName + "开始获取普通任务!");
@@ -71,6 +76,9 @@ public class ServiceWindow{
 		}
 	}
 
+	/**
+	 * 快速客户服务
+	 */
 	private void expressService(){
 		Integer serviceNumber = NumberMachine.getInstance().getExpressManager()
 				.fetchNumber();
@@ -94,6 +102,9 @@ public class ServiceWindow{
 		}
 	}
 
+	/**
+	 * VIP客户服务
+	 */
 	private void vipService(){
 		Integer serviceNumber = NumberMachine.getInstance().getVipManager().fetchNumber();
 		String windowName = "第" + number + "号" + type + "窗口";
