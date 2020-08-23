@@ -1,9 +1,12 @@
-package com.somnus.queue.bankQueue;
+package com.somnus.thread.bank;
 
 import com.google.common.util.concurrent.MoreExecutors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 银行窗口业务调度业务
+ */
 public class MainClass {
 
     public static void main(String[] args) {

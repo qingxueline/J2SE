@@ -1,4 +1,4 @@
-package com.somnus.queue.bankQueue;
+package com.somnus.thread.bank;
 
 import java.util.Random;
 import java.util.concurrent.Executors;

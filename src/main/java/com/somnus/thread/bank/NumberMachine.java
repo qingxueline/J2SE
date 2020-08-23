@@ -1,4 +1,4 @@
-package com.somnus.queue.bankQueue;
+package com.somnus.thread.bank;
 
 /**
  * 号码管理器，单例

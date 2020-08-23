@@ -1,4 +1,4 @@
-package com.somnus.queue.bankQueue;
+package com.somnus.thread.bank;
 
 public class Constants {
 	public static int MAX_SERVICE_TIME = 10000; //10秒！

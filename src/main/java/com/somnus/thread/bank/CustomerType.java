@@ -1,4 +1,4 @@
-package com.somnus.queue.bankQueue;
+package com.somnus.thread.bank;
 
 public enum CustomerType{
 	//客户类型
