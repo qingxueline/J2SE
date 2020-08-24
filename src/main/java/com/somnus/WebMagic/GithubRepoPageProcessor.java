@@ -15,6 +15,7 @@ import us.codecraft.webmagic.scheduler.RedisScheduler;
 import java.util.List;
 
 /**
+ * 爬虫实现
  * @author lyl
  * @version V1.0
  * @project J2SE
