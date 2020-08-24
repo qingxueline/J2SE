@@ -1,4 +1,4 @@
-package com.somnus.annotation;
+package com.somnus.annotation.audit;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Inherited;

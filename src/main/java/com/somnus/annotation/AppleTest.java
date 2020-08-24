@@ -1,5 +1,7 @@
 package com.somnus.annotation;
 
+import com.somnus.annotation.audit.Apple;
+
 /**
  * ${DESCRIPTION}
  *
@@ -16,7 +18,7 @@ public class AppleTest {
         System.out.println(show.age());
     }
 
-    @Apple(name = "张朵朵")
+    @Apple(name = "张朵朵", sex = "女")
     public void show() {
 
     }
