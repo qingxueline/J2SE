@@ -1,4 +1,4 @@
-package com.somnus.test;
+package com.somnus.map;
 
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
@@ -10,12 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 
 /**
+ * 使用HashMap，求2个字符数组的交集
+ *
  * @author lyl
  * @version V1.0
  * @project J2SE
  * @package com.somnus.map
  * @date 2018/06/22 11:41
- * @description 就2个字符数组的交集
  */
 @Log4j
 public class HashMapTest {
@@ -25,8 +26,8 @@ public class HashMapTest {
         String time = Identities.get28LenNonce();
         Stopwatch stopwatch = Stopwatch.createStarted();
 
-        String[] str1 = {"Abc", "D","bat"};
-        String[] str2 = {"Ab", "Cd", "Dc", "D", "D","java","j","bat"};
+        String[] str1 = {"Abc", "D", "bat"};
+        String[] str2 = {"Ab", "Cd", "Dc", "D", "D", "java", "j", "bat"};
 
         log.info(String.format("开始求交集 [%s]", time));
 
@@ -49,6 +50,7 @@ public class HashMapTest {
             }
         }
 
+        //将来为True为的数据合并到list
         for (String s : map.keySet()) {
             if (map.get(s)) {
                 data.add(s);

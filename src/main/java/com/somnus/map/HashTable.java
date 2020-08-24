@@ -1,5 +1,8 @@
 package com.somnus.map;
 
+/**
+ * Hashtable通过使用synchronized修饰方法的方式来实现多线程同步，因此，Hashtable的同步会锁住整个数组
+ */
 public class HashTable {
 	
 	public static void main(String[] args) {
