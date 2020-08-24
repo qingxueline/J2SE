@@ -1,6 +1,7 @@
 package com.somnus.proxy;
 
-/** 
+/**
+ * 静态代理
  * @Title: StaticClient.java 
  * @Package com.somnus.proxy 
  * @Description: TODO

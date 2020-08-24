@@ -3,7 +3,8 @@ package com.somnus.proxy.dynamic;
 import com.somnus.proxy.Hello;
 import com.somnus.proxy.HelloImpl;
 
-/** 
+/**
+ * JDK动态代理
  * @Title: DynamicClient.java 
  * @Package com.somnus.proxy.dynamic 
  * @Description: TODO

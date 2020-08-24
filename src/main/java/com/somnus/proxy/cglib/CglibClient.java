@@ -7,6 +7,7 @@ package com.somnus.proxy.cglib;
  */
 public class CglibClient {
 	public static void main(String[] args) {
+		//创建代理对象
 	    CglibProxy cglib = new CglibProxy();
 	    
 	    HelloImpl proxy = (HelloImpl)cglib.getProxy(new HelloImpl());
