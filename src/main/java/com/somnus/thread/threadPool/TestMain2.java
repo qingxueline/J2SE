@@ -7,9 +7,9 @@ import javax.annotation.Nullable;
 import java.util.concurrent.*;
 
 /**
- * 带返回值的线程，可以实现异步返回结果，可以捕获到子类抛出的异常
+ * 带返回值的线程（Callable），可以实现异步返回结果，可以捕获到子类抛出的异常
  * <p>
- * 举个例子：在泡茶的时候，需要先烧水，准备茶叶，然后在泡一会。这样就使用Future返回的结果，传递给下一个线程使用。
+ * 举个例子：在泡茶的时候，需要先烧水，准备茶叶，然后在泡一会。这样就使用Future返回的结果，传递给下一个线程使用。经常使用在异步调用
  *
  * @author lyl
  * @version 2020/8/19 0019 14:50:42
@@ -23,7 +23,7 @@ public class TestMain2 {
             public String call() throws Exception {
                 System.out.println("进入烧水线程...........");
                 System.out.println(name + "打开水龙头");
-//                exceptionMethod();
+                exceptionMethod();
                 System.out.println(name + "开始接水");
                 System.out.println("开始烧水");
                 Thread.sleep(4000);
@@ -51,12 +51,15 @@ public class TestMain2 {
 
         //Futures提供回调函数
         Futures.addCallback(listenableFuture, new FutureCallback<String>() {
+            //成功了，执行执行其他操作
             @Override
             public void onSuccess(@Nullable String result) {
                 if ("水烧开了".equals(result)) {
                     System.out.println(name + "放入茶叶，开始泡茶了");
                 }
             }
+
+            //失败了，捕获异常
             @Override
             public void onFailure(Throwable throwable) {
                 System.out.printf("onFailure %s%n", throwable.getMessage());
