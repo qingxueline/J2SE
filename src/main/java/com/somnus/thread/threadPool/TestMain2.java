@@ -51,7 +51,7 @@ public class TestMain2 {
 
         //Futures提供回调函数
         Futures.addCallback(listenableFuture, new FutureCallback<String>() {
-            //成功了，执行执行其他操作
+            //成功了，继续执行其他操作（比如通知）
             @Override
             public void onSuccess(@Nullable String result) {
                 if ("水烧开了".equals(result)) {
