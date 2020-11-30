@@ -9,6 +9,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class Coder {
      * @return
      * @throws java.security.NoSuchAlgorithmException
      */
-    public static String sha(String str) throws Exception {
+    public static String sha1(String str) throws Exception {
         return encrypt(str, KEY_SHA);
     }
 
@@ -68,7 +69,7 @@ public class Coder {
      */
     private static String encrypt(String str, String algorithmName) throws Exception {
         MessageDigest m = MessageDigest.getInstance(algorithmName);
-        m.update(str.getBytes(/*"UTF8"*/));
+        m.update(str.getBytes(StandardCharsets.UTF_8));
         byte s[] = m.digest();
         return Hex.encodeHexString(s);
     }
@@ -104,12 +105,12 @@ public class Coder {
         SecretKey secretKey = new SecretKeySpec(Base64.decodeBase64(key), KEY_MAC);
         Mac mac = Mac.getInstance(secretKey.getAlgorithm());
         mac.init(secretKey);
-        byte s[] = mac.doFinal(data);
+        byte[] s = mac.doFinal(data);
         return Hex.encodeHexString(s);
     }
 
     /**
-     * BASE64解密
+     * BASE64编码
      *
      * @param key 。公钥或者私钥
      * @return 。
@@ -120,7 +121,7 @@ public class Coder {
     }
 
     /**
-     * BASE64加密
+     * BASE64编码
      *
      * @param key 。公钥或者私钥
      * @return 。

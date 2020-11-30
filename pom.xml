@@ -71,12 +71,18 @@
             <artifactId>commons-net</artifactId>
             <version>3.3</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.1</version>
         </dependency>
-
+		<!--ommons-codec是Apache开源组织提供的用于摘要运算、编码解码的包-->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
+		</dependency>
 		<!-- 加入pinyin4j依赖包 -->
 		<dependency>
 			<groupId>com.belerweb</groupId>
@@ -361,6 +367,12 @@
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
 			<version>1.64</version>
+		</dependency>
+		<!--图形验证码工具，行为验证码可以参考 https://gitee.com/anji-plus/captcha?_from=gitee_search-->
+		<dependency>
+			<groupId>com.github.penggle</groupId>
+			<artifactId>kaptcha</artifactId>
+			<version>2.3.2</version>
 		</dependency>
 
 	</dependencies>

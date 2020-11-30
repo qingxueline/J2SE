@@ -46,8 +46,9 @@ public enum GenderEnum {
     	GenderEnum genum = null;
 		if (name != null){
 			for (GenderEnum type : GenderEnum.values()) {
-				if (type.name().equalsIgnoreCase(name))
-					genum = type;
+				if (type.name().equalsIgnoreCase(name)) {
+                    genum = type;
+                }
 			}
 		}
 		return genum;

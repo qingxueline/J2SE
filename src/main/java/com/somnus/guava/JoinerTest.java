@@ -45,7 +45,7 @@ public class JoinerTest {
         map.put("username","killy");
         map.put("password","123456");
 
-        msg = Joiner.on("&").withKeyValueSeparator("=").join( ImmutableMap.copyOf(map));
+        msg = Joiner.on("&").withKeyValueSeparator("=").join(ImmutableMap.copyOf(map));
         System.out.println("result:" + msg);//result:password=123456&username=killy
 
         msg = Joiner.on("&").withKeyValueSeparator("=").join(ImmutableMap.of("username", "killy", "password", "123456"));

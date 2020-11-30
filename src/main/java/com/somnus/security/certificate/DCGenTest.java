@@ -35,8 +35,8 @@ public class DCGenTest {
 //                "中国电信", "广州天河区", "广东", "中国", new Date(), 365L, path + "wuming.pfx");
 //        DigitalCertificateGenerator.generatePFX(wuming);
 
-        KeyStoreInfo keyStore = new KeyStoreInfo("smallcellkeypair", "8329XFE8&^1", "8329XFE8&^1", "CT SAMLL CEL", "SAMLL CEL",
-                "GSTA", "TH", "GD", "CN", new Date(), 365L * 500, path + "smallCellKeyPair.jks");
+        KeyStoreInfo keyStore = new KeyStoreInfo("ftpServerKeyPair", "8329XFE8&^1", "8329XFE8&^1", "ftp server", "ftp server",
+                "GSTA", "TH", "GD", "CN", new Date(), 365L * 500, path + "ftpServerKeyPair.jks");
         DigitalCertificateGenerator.generateJKS(keyStore);
 
 //        certInfo = new KeyStoreInfo("无名5", "789", "101", "7", "8", "9", "10",

@@ -1,6 +1,5 @@
 package com.somnus.thread.threadPool;
 
-import com.google.common.base.Stopwatch;
 import com.google.common.util.concurrent.*;
 
 import javax.annotation.Nullable;
@@ -15,7 +14,7 @@ import java.util.concurrent.*;
  * @version 2020/8/19 0019 14:50:42
  */
 public class TestMain2 {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         String name = "张三";
         ThreadPoolExecutor threadPoolExecutor = ViThreadPoolManager.getInstance().getThreadPool().getThreadPoolExecutor();
         ListenableFuture<String> listenableFuture = MoreExecutors.listeningDecorator(threadPoolExecutor).submit(new Callable<String>() {
@@ -23,7 +22,7 @@ public class TestMain2 {
             public String call() throws Exception {
                 System.out.println("进入烧水线程...........");
                 System.out.println(name + "打开水龙头");
-                exceptionMethod();
+//                exceptionMethod();
                 System.out.println(name + "开始接水");
                 System.out.println("开始烧水");
                 Thread.sleep(4000);

@@ -47,7 +47,7 @@ public class RSACoderTes {
         //客户端代码
         //按照字典顺序排序，然后使用sha()制作签名
         String shaSign1 = "name=" + name + "&password=" + password;
-        shaSign1 = Coder.sha(shaSign1);
+        shaSign1 = Coder.sha1(shaSign1);
         byte[] data = shaSign1.getBytes();
         //使用公钥，对签名进行RSA加密
         byte[] encodedData = RSACoder.encryptByPublicKey(data, publicKey);
@@ -64,7 +64,7 @@ public class RSACoderTes {
         String outputStr = new String(decodedData);
 
         String shaSign2 = "name=" + name + "&password=" + password;
-        shaSign2 = Coder.sha(shaSign2);
+        shaSign2 = Coder.sha1(shaSign2);
 
         if (shaSign2.equals(outputStr)) {
             System.err.println("加密前: " + shaSign1 + "\n\r" + "解密后: " + outputStr);
@@ -111,7 +111,7 @@ public class RSACoderTes {
         //1、--------------------------------------------服务端代码，使用私钥生成签名
         //按照字典顺序排序，然后使用sha()制作签名
         String sha1 = "name=" + name + "&password=" + password;
-        sha1 = Coder.sha(sha1);
+        sha1 = Coder.sha1(sha1);
         // 产生签名
         String sign = RSACoder.sign(sha1.getBytes(), privateKey);
 
@@ -119,7 +119,7 @@ public class RSACoderTes {
         // 验证签名(代码放在服务使用者一方)
 
         String sha2 = "name=" + name + "&password=" + password;
-        sha2 = Coder.sha(sha2);
+        sha2 = Coder.sha1(sha2);
         boolean status = RSACoder.verify(sha2.getBytes(), publicKey, sign);
         System.err.println("状态:\r" + status);
 

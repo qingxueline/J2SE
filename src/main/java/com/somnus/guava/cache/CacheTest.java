@@ -61,7 +61,7 @@ public class CacheTest {
         try {
             System.out.println(cache.get("j"));
             TimeUnit.SECONDS.sleep(2);
-            System.out.println(cache.get("s")); //缓存过期后，返回key。会输出s
+            System.out.println(cache.get("j")); //当没有缓存时，执行load(String key)方法，所以会返回key。会输出j
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
