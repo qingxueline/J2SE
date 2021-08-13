@@ -366,7 +366,7 @@
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
-			<version>1.64</version>
+			<version>1.67</version>
 		</dependency>
 		<!--图形验证码工具，行为验证码可以参考 https://gitee.com/anji-plus/captcha?_from=gitee_search-->
 		<dependency>
